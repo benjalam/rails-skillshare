@@ -13,7 +13,7 @@ class SkillsController < ApplicationController
   end
 
   def create
-    @skill = Skill.new(skill_params)
+    @skill = Skill.new(skills_params)
     if @skill.save
       redirect_to skill_path(@skill)
     else
@@ -23,7 +23,7 @@ class SkillsController < ApplicationController
 
   private
 
-    def cocktail_params
+    def skills_params
       params.require(:skill).permit(:city, :title, :description)
     end
 end
