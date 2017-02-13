@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <div class="text-center">
+        <h1><%= @review.title %></h1>
+        <h1><%= @review.rating %></h1>
+        <p><%= @review.description %></p>
+        <p><%= link_to 'Delete', reviews_path(@booking, @skill), method: :delete %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
