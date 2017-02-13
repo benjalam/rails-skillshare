@@ -1,6 +1,7 @@
 <h1>List of skills</h1>
 
-<%= @skills.each do |skill| %>
+<% @skills.each do |skill| %>
 <ul>
-  <li>skill.name</li>
+  <li><%= skill.name %></li>
 </ul>
+<% end %>
