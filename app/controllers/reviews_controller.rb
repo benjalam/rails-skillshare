@@ -10,13 +10,13 @@ class ReviewsController < ApplicationController
   end
 
   def create
-  @review = Review.new(review_params)
-  @review.booking = @booking
-  if @review.save
-    redirect_to booking_path(@booking)
-  else
-    render :new
-  end
+    @review = Review.new(review_params)
+    @review.booking = @booking
+    if @review.save
+      redirect_to booking_path(@booking)
+    else
+      render :new
+    end
    # il faut nester review dans booking
   end
 
@@ -43,8 +43,8 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-   params.require(:review).permit(:title, :description, :rating)
- end
+    params.require(:review).permit(:title, :description, :rating)
+  end
 
   def set_review
     @review = Review.find(params[:id])
