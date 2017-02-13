@@ -33,6 +33,7 @@ class SkillsController < ApplicationController
   def destroy
     @skill.destroy
     redirect_to skills_path
+  end
 
   private
 
