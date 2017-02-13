@@ -1,5 +1,6 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show]
+  before_action :set_skill, only: [:new]
 
   def show
     @review = Review.new
@@ -11,8 +12,10 @@ class BookingsController < ApplicationController
 
   def create
     @booking = Booking.new(booking_params)
+    @booking.user = current_user
+    @booking.skill = Skill.find(params[:skill_id])
     if @booking.save
-      redirect_to booking_path(@booking)
+      redirect_to skill_booking_path(@booking.skill, @booking)
     else
       render :new
     end
@@ -22,6 +25,10 @@ class BookingsController < ApplicationController
 
   def set_booking
     @booking = Booking.find(params[:id])
+  end
+
+  def set_skill
+    @skill = Skill.find(params[:skill_id])
   end
 
   def booking_params
