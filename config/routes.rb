@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :reviews
   end
-  resources :bookings
-  resources :skills
+  resources :skills do
+    resources :bookings, only: [:new, :show, :create]
+  end
 end
