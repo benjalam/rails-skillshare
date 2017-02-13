@@ -24,6 +24,6 @@ class SkillsController < ApplicationController
   private
 
     def skills_params
-      params.require(:skill).permit(:city, :title, :description)
+      params.require(:skill).permit(:city, :title, :description, :photo, :photo_cache)
     end
 end
