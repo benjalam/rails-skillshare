@@ -1,4 +1,5 @@
 class SkillsController < ApplicationController
+  before_action :set_article, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @skills = Skill.all
@@ -22,11 +23,27 @@ class SkillsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    @skill.update(skills_params)
+    redirect_to skill_path(@skill)
+  end
+
+  def destroy
+    @skill.destroy
+    redirect_to skills_path
+  end
+
   private
 
     def skills_params
       params.require(:skill).permit(:city, :title, :description, :photo, :photo_cache)
     end
+  def set_skill
+    @skill = Skill.find(params[:id])
+  end
 end
 
 
