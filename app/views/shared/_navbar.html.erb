@@ -8,12 +8,10 @@
   <div class="navbar-wagon-right hidden-xs hidden-sm">
 
     <!-- Search form -->
-    <form action="" class="navbar-wagon-search">
-      <input type="text" class="navbar-wagon-search-input" placeholder="Search something">
-      <button type="submit" class="navbar-wagon-search-btn">
-        <i class="fa fa-search"></i>
-      </button>
-    </form>
+    <%= form_tag(skills_path, :method => "get", id: "search-form", class: "navbar-wagon-search") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search for a Skill", class: "navbar-wagon-search-input" %>
+    <%= submit_tag "o", :name => nil, class: "navbar-wagon-search-btn" %>
+    <% end %>
 
     <!-- Different navigation if login or not -->
     <% if user_signed_in? %>
