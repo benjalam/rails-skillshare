@@ -6,6 +6,7 @@
   position: relative;
   margin: 20px;
   border-radius:10px;
+  transition: all .2s ease;
 }
 .card-user {
   position: absolute;
@@ -42,4 +43,8 @@
 }
 .card-link:hover{
   opacity: 0.1;
+}
+
+.card:hover{
+  transform: scale(1.1);
 }
