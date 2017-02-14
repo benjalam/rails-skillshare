@@ -3,4 +3,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  mount_uploader :photo, PhotoUploader
+
 end

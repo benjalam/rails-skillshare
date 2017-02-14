@@ -22,6 +22,8 @@ class SkillsController < ApplicationController
     end
   end
 
+  mount_uploader :photo, PhotoUploader
+
   private
 
     def skills_params
