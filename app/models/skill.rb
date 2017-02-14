@@ -7,7 +7,7 @@ class Skill < ApplicationRecord
   validates :city, presence: true
   mount_uploader :photo, PhotoUploader
 
-  def self.search(search)
-   where("title ILIKE ?", "%#{search}%")
+  def self.search(params)
+   where("title ILIKE ?", "%#{params[:search]}%")
  end
 end
