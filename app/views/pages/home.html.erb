@@ -22,15 +22,17 @@
         <div class="col-xs-12 col-sm-4 text-center">
           <div class="card-home">
             <%= image_tag "add.svg", class: "avatar-xl" %>
+            <%= link_to "", new_skill_path(@skill), class: "card-home-link"%>
             <h3 class= "card-home-title text-center">Add a Skill</h3>
             <p class="card-home-description">You have a special skill you want others to benefit from ? Upload it and enjoy great work opportunities !!</p>
-        </div>
+          </div>
         </div>
         </li>
         <li>
-         <div class="col-xs-12 col-sm-4 text-center">
+        <div class="col-xs-12 col-sm-4 text-center">
           <div class="card-home">
             <%= image_tag "rent.svg", class: "avatar-xl" %>
+            <%= link_to "", "#search-form", class: "card-home-link"%>
             <h3 class= "card-home-title text-center">Access Skills</h3>
             <p class="card-home-description">Need a DJ for your party ? A magician for your son's birthday ? Just ask one of our skillmen and enjoy
             unprecedented qualified services !</p>
@@ -38,12 +40,13 @@
         </div>
         </li>
         <li>
-          <div class="col-xs-12 col-sm-4 text-center">
+        <div class="col-xs-12 col-sm-4 text-center">
           <div class="card-home">
             <%= image_tag "lightbulb.svg", class: "avatar-xl" %>
+            <%= link_to "", skills_path, class: "card-home-link"%>
             <h3 class= "card-home-title text-center">Need inspiration ?</h3>
             <p class="card-home-description">You want to discover something great ? Scroll all our skills and find the exact idea you were looking for !</p>
-        </div>
+          </div>
         </div>
         </li>
       </ul>
