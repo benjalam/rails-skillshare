@@ -3,7 +3,7 @@
     <div class="media-section">
       <h1> Hello <%= @user.first_name %>!</h1>
         <h4> Member since <%= @user.created_at.year %></h4>
-        <%= cl_image_tag @user.photo, height: 300, width: 200, crop: :fill %>
+        <%= cl_image_tag @user.photo, height: 300, width: 200, crop: :fill  %>
         <%= link_to "Edit Profile", edit_user_registration_path(@user) %>
     </div>
     <div class="media-section">
@@ -14,7 +14,7 @@
   <div class="media-aside">
     <div class="media-section">
       <%= link_to "Add a skill", edit_skill_path(@user) %>
-      ...
+
     </div>
     <div class="media-section">
       <h2>382 upvotes</h2>
