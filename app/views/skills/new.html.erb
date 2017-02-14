@@ -1,3 +1,5 @@
+<div class="container new-skill-form">
+
 <%= simple_form_for [@skill] do |f| %>
 <%= f.error_notification %>
   <%= f.input :city %>
@@ -7,3 +9,4 @@
   <%= f.input :photo_cache, as: :hidden %>
   <%= f.submit "add a skill", class: "btn btn-primary" %>
 <% end %>
+</div>

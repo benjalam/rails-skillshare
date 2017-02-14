@@ -1,6 +1,5 @@
 <div class="container">
-  <h1>List of skills</h1>
-
+  <h1 class="index-title text-center">List of skills</h1>
   <div class="container">
     <div class="row">
       <% @skills.each do |skill| %>
@@ -11,8 +10,9 @@
               <h2><%= skill.title %></h2>
               <p><%= skill.description %></p>
             </div>
-            <img class="card-user avatar" src="<%= skill.user.photo %>">
-            <a class="card-link" href="#" ></a>
+            <% avatar_url = skill.user.facebook_picture_url || skill.user.photo || "http://placehold.it/30x30"%>
+            <%= image_tag avatar_url, class: "card-user avatar"%>
+            <%= link_to "", skill_path(skill), class:"card-link"%>
           </div>
         </div>
       <% end %>
