@@ -3,5 +3,42 @@
     <h1>Rent a Skill</h1>
     <p>Need to hire a Skillman ?</p>
     <%= link_to "See all our skills", skills_path, class: "btn btn-primary" %>
+
+      <%= form_tag(skills_path, :method => "get", id: "search-form", class: "search-bar") do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Search for a Skill", class: "search-input" %>
+      <%= submit_tag "o", :name => nil, class: "search-btn" %>
+      <% end %>
+
+  </div>
+</div>
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-4">
+
+      <div class="business-description">
+        <ul>
+          <li>
+            <%= image_tag "logo.png" %>
+            <h2></h2>
+            <p></p>
+          </li>
+          <li>
+            <%= image_tag "logo.png" %>
+            <h2></h2>
+            <p></p>
+          </li>
+          <li>
+            <%= image_tag "logo.png" %>
+            <h2></h2>
+            <p></p>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
   </div>
 </div>
