@@ -12,7 +12,9 @@
         <% image_url = @skill.photo.present? ? cl_image_path(@skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
           <%= image_tag image_url, class: 'image-size'%>
         <% if @skill.user == current_user %>
-          <p><%= link_to 'Edit skill' , edit_skill_path(@skill) %></p>
+            <p><%= link_to 'Edit skill' , edit_skill_path(@skill) %></p>
+          <% elsif current_user!= nil %>
+            <p><%= link_to "Book it!", new_skill_booking_path(@skill) %></p>
         <% end %>
       </div>
     </div>
