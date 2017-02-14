@@ -15,6 +15,7 @@ class SkillsController < ApplicationController
 
   def create
     @skill = Skill.new(skills_params)
+    @skill.user = current_user
     if @skill.save
       redirect_to skill_path(@skill)
     else
@@ -35,11 +36,13 @@ class SkillsController < ApplicationController
     redirect_to skills_path
   end
 
+  mount_uploader :photo, PhotoUploader
+
   private
 
-  def skills_params
-    params.require(:skill).permit(:city, :title, :description)
-  end
+    def skills_params
+      params.require(:skill).permit(:city, :title, :description, :photo, :photo_cache)
+    end
 
   def set_skill
     @skill = Skill.find(params[:id])
