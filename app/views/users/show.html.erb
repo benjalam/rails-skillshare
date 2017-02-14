@@ -3,14 +3,20 @@
     <div class="media-section">
       <h1> Hello <%= current_user.first_name %>!</h1>
         <h4> Member since <%= current_user.created_at.year %></h4>
-        <%= cl_image_tag current_user.photo, height: 300, width: 200, crop: :fill  %>
+        <% avatar_url = current_user.facebook_picture_url || current_user.photo %>
+
+        <%= cl_image_tag avatar_url, height: 300, width: 200, crop: :fill  %>
         <div>
           <%= link_to "Edit Profile", edit_user_registration_path(current_user) %>
         </div>
     </div>
     <div class="media-section">
-      <h2>Description</h2>
-      ...
+      <h2>Reviews</h2>
+        <% current_user.reviews do |r| %>
+          <h4><%= r.title %></h4>
+          <p><%= r.description %></p>
+          <% end  %>
+
     </div>
   </div>
   <div class="media-aside">
