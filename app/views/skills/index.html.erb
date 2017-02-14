@@ -1,7 +1,20 @@
-<h1>List of skills</h1>
-
-<% @skills.each do |skill| %>
-<ul>
-  <li><%= skill.title %></li>
-</ul>
-<% end %>
+<div class="container">
+  <h1 class="index-title text-center">List of skills</h1>
+  <div class="container">
+    <div class="row">
+      <% @skills.each do |skill| %>
+        <div class="col-xs-12 col-sm-4">
+          <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%=skill.photo%>');">
+            <div class="card-category">Popular</div>
+            <div class="card-description">
+              <h2><%= skill.title %></h2>
+              <p><%= skill.description %></p>
+            </div>
+            <img class="card-user avatar" src="<%= skill.user.photo %>">
+            <%= link_to "", skill_path(skill), class:"card-link"%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

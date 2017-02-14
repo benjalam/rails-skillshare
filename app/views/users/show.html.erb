@@ -1,0 +1,28 @@
+<div class="media">
+  <div class="media-body">
+    <div class="media-section">
+      <h1> Hello <%= current_user.first_name %>!</h1>
+        <h4> Member since <%= current_user.created_at.year %></h4>
+        <%= cl_image_tag current_user.photo, height: 300, width: 200, crop: :fill  %>
+        <div>
+          <%= link_to "Edit Profile", edit_user_registration_path(current_user) %>
+        </div>
+    </div>
+    <div class="media-section">
+      <h2>Description</h2>
+      ...
+    </div>
+  </div>
+  <div class="media-aside">
+    <div class="media-section">
+      <h1>Your skills</h1>
+        <% current_user.skills.each do |s|%>
+          <h4><%= s.title %></h4>
+          <%= cl_image_tag s.photo, height: 100, width: 100, crop: :fill  %>
+         <% end %>
+    </div>
+    <div class="media-section">
+
+    </div>
+  </div>
+</div>

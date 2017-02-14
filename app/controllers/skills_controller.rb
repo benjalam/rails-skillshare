@@ -1,8 +1,14 @@
 class SkillsController < ApplicationController
   before_action :set_skill, only: [ :show, :edit, :update, :destroy ]
+  skip_before_action :authenticate_user!, only: [:home, :index, :show]
 
   def index
     @skills = Skill.all
+    if params[:search]
+     @skills = Skill.search(params[:search])
+   else
+     @skills = Skill.all
+   end
   end
 
   def show
