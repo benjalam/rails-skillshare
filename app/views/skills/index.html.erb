@@ -10,7 +10,7 @@
               <h2><%= skill.title %></h2>
               <p><%= skill.description %></p>
             </div>
-            <% avatar_url = current_user.facebook_picture_url || skill.user.photo || "http://placehold.it/30x30"%>
+            <% avatar_url = skill.user.facebook_picture_url || skill.user.photo || "http://placehold.it/30x30"%>
             <%= image_tag avatar_url, class: "card-user avatar"%>
             <%= link_to "", skill_path(skill), class:"card-link"%>
           </div>
