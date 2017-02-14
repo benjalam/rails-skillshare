@@ -1,3 +1,23 @@
-<h1>Booking recapitulation</h1>
-
-<h2>@booking.status</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+      <div class="text-center background-beige padded">
+        <h1>Booking recapitulation</h1>
+        <% image_url = @booking.skill.photo.present? ? cl_image_path(@booking.skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
+         <%= image_tag image_url, class: 'image-size'%>
+        <% if current_user == @booking.user %>
+          <h2>You booked a session with <%= @booking.skill.user.first_name %>!</h2>
+          <% image_url = @booking.skill.user.photo.present? ? cl_image_path(@booking.skill.user.photo, height: 200, width: 200, crop: :thumb) : asset_url('random-user-default.jpg') %>
+          <%= image_tag image_url, class: 'image-size'%>
+        <% else %>
+          <h2><%= @booking.user.first_name %> booked a session with you!</h2>
+          <% image_url = @booking.user.photo.present? ? cl_image_path(@booking.user.photo, height: 200, width: 200, crop: :thumb) : asset_url('random-user-default.jpg') %>
+          <%= image_tag image_url, class: 'image-size'%>
+        <% end  %>
+        <p>Start date:<strong><%= @booking.start_date %></strong></p>
+        <p>End date:<strong><%= @booking.start_date %></strong></p>
+        <p>Booking status: <strong><%= @booking.status %></strong></p>
+      </div>
+    </div>
+  </div>
+</div>
