@@ -3,31 +3,38 @@
     <h1>Rent a Skill</h1>
     <p>Need to hire a Skillman ?</p>
     <%= link_to "See all our skills", skills_path, class: "btn btn-primary" %>
+
+      <%= form_tag(skills_path, :method => "get", id: "search-form", class: "search-bar") do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Search for a Skill", class: "search-input" %>
+      <%= submit_tag "o", :name => nil, class: "search-btn" %>
+      <% end %>
+
   </div>
 </div>
 
-<div class="container">
+
+<div class="wraper-home">
   <h1 class="index-title text-center">What do we do</h1>
   <div class="container">
     <div class="row">
-      <ul class="list-inline">
+      <ul>
         <li>
-        <div class="col-xs-12 col-sm-6 col-md-4">
-          <%= image_tag "add.svg" %>
+        <div class="col-xs-12 col-sm-4 text-center">
+          <%= image_tag "add.svg", class: "avatar-xl" %>
           <h3>Add a Skill</h3>
           <p>You have a special skill you want others to benefit from ? Upload it and enjoy great work opportunities !!</p>
         </div>
         </li>
         <li>
-         <div class="col-xs-12 col-sm-6 col-md-4">
-          <%= image_tag "rent.svg" %>
+         <div class="col-xs-12 col-sm-4 text-center">
+          <%= image_tag "rent.svg", class: "avatar-xl" %>
           <h3>Access Amazing Skills</h3>
           <p>Need a DJ for your party ? A magician for your son's birthday ? Just ask one of our skillmen and enjoy unprecedented qualified services !</p>
         </div>
         </li>
         <li>
-          <div class="col-xs-12 col-sm-6 col-md-4">
-          <%= image_tag "lightbulb.svg" %>
+          <div class="col-xs-12 col-sm-4 text-center">
+          <%= image_tag "lightbulb.svg", class: "avatar-xl" %>
           <h3>Need inspiration ?</h3>
           <p>You want to discover something great ? Scroll all our skills and find the exact idea you were looking for !</p>
         </div>
