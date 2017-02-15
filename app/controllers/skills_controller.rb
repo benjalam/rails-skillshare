@@ -13,6 +13,7 @@ class SkillsController < ApplicationController
 
   def show
     @skill = Skill.find(params[:id])
+    @booking = Booking.new
   end
 
   def new
