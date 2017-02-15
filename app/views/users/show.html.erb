@@ -8,7 +8,7 @@
         <% end  %>
         <h4> Member since <%= @user.created_at.year %></h4>
         <% avatar_url = @user.facebook_picture_url || @user.photo %>
-        <%= cl_image_tag avatar_url, class: 'avatar-large'  %>
+        <%= cl_image_tag avatar_url, class: 'avatar-xl'  %>
         <% if @user == current_user %>
             <p><%= link_to "Edit Profile", edit_user_registration_path(current_user), class: "btn btn-primary" %></p>
           <% end %>
@@ -17,6 +17,15 @@
       <h2>Description</h2>
 
         <p><%= @user.description %></p>
+    </div>
+    <div class="media-section">
+      <h2> My bookings </h2>
+        <% @user.bookings.each do |b| %>
+            <p> Wth <%= b.skill.user.first_name %></p>
+            <p>Start date:<strong><%= b.start_date %></strong></p>
+            <p>End date:<strong><%= b.start_date %></strong></p>
+            <p>Booking status: <strong><%= b.status %></strong></p>
+          <% end  %>
     </div>
   </div>
   <div class="media-aside">
