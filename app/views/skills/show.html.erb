@@ -14,7 +14,7 @@
       </div>
 
       <% if @skill.user == current_user %>
-        <p><%= link_to 'Edit skill' , edit_skill_path(@skill) %></p>
+        <p class="text-center"><%= link_to 'Edit skill' , edit_skill_path(@skill), class: "btn btn-primary" %></p>
       <% elsif current_user!= nil %>
 
 

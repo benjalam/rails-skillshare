@@ -10,9 +10,7 @@
         <% avatar_url = @user.facebook_picture_url || @user.photo %>
         <%= cl_image_tag avatar_url, class: 'avatar-large'  %>
         <% if @user == current_user %>
-          <div>
-            <%= link_to "Edit Profile", edit_user_registration_path(current_user) %>
-          </div>
+            <p><%= link_to "Edit Profile", edit_user_registration_path(current_user), class: "btn btn-primary" %></p>
           <% end %>
     </div>
     <div class="media-section">
