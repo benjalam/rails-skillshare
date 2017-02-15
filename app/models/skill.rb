@@ -15,9 +15,8 @@ class Skill < ApplicationRecord
     skill.bookings.each do |booking|
       if booking.available?(booking, form_start_date, form_end_date)
         return true
-      else
-        return false
       end
     end
+    return false
   end
 end
