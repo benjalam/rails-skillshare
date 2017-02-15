@@ -14,7 +14,7 @@
       </div>
 
       <% if @skill.user == current_user %>
-        <p><%= link_to 'Edit skill' , edit_skill_path(@skill) %></p>
+        <p class="text-center"><%= link_to 'Edit skill' , edit_skill_path(@skill), class: "btn btn-primary" %></p>
       <% elsif current_user!= nil %>
 
 
@@ -25,7 +25,7 @@
             <%= f.input :start_date %>
             <%= f.input :end_date %>
             <%= f.hidden_field :status, value: "pending" %>
-            <%= f.submit 'Book it!', class: "btn btn-success" %>
+            <%= f.submit 'Book it!', class: "btn btn-primary" %>
           <% end %>
         </div>
 
