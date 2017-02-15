@@ -1,7 +1,11 @@
 <div class="media">
   <div class="media-body">
     <div class="media-section">
-      <h1> Hello <%= @user.first_name %>!</h1>
+      <% if @user == current_user %>
+        <h1> Hello <%= @user.first_name %>!</h1>
+        <% else %>
+        <h1> Check out <%= @user.first_name %>'s profile !</h1>
+        <% end  %>
         <h4> Member since <%= @user.created_at.year %></h4>
         <% avatar_url = @user.facebook_picture_url || @user.photo %>
 
