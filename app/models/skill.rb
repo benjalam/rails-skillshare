@@ -9,5 +9,15 @@ class Skill < ApplicationRecord
 
   def self.search(params)
    where("title ILIKE ?", "%#{params[:search]}%")
- end
+  end
+
+  def available?(skill, form_start_date, form_end_date)
+    skill.bookings.each do |booking|
+      if booking.available?(booking, form_start_date, form_end_date)
+        return true
+      else
+        return false
+      end
+    end
+  end
 end
