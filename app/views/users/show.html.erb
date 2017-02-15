@@ -23,7 +23,11 @@
   </div>
   <div class="media-aside">
     <div class="media-section">
+    <% if @user == current_user %>
       <h1>Your skills</h1>
+      <% else %>
+      <h1> <%= @user.first_name %>'s skills </h1>
+      <% end  %>
         <% @user.skills.each do |s|%>
           <h4><%= s.title %></h4>
           <% image_url = s.photo.present? ? cl_image_path(s.photo, height: 100, width: 100, crop: :thumb) : asset_url('youpi-default.jpg') %>
