@@ -8,8 +8,7 @@
         <% end  %>
         <h4> Member since <%= @user.created_at.year %></h4>
         <% avatar_url = @user.facebook_picture_url || @user.photo %>
-
-        <%= cl_image_tag avatar_url, height: 300, width: 200, crop: :fill  %>
+        <%= cl_image_tag avatar_url, class: 'avatar-large'  %>
         <% if @user == current_user %>
           <div>
             <%= link_to "Edit Profile", edit_user_registration_path(current_user) %>
