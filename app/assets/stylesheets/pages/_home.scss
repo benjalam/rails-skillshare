@@ -3,10 +3,17 @@
  * (margin/padding adjustments)
  * ------------------------------------- */
 .wraper-home {
-  margin-top: 50px;
-  margin-bottom: 50px;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  background-color: #E9E9E9;
+  height: 500px;
 }
 
 .wraper-home li {
   list-style: none;
+}
+
+.wraper h1 {
+  font-weight: bold;
+  padding-bottom: 10px;
 }
