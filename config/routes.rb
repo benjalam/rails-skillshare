@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :users
-  resources :skills do
+  resources :skills only: [:new, :show, :create, :edit, :update, :delete, :index] do
     resources :bookings, only: [:new, :show, :create] do
       resources :reviews
     end
