@@ -1,25 +1,19 @@
 .search-bar {
-  flex: 0 1 300px;
-  display: flex;
-  justify-content: flex-end;
   padding: 0 10px;
   position: relative;
   margin-top: 50px;
 }
 
-.search-btn {
-  line-height: 40px;
-  color: white;
-  border: none;
-  background: transparent;
-  position: absolute;
-  right: 14px;
-  top: -2px;
-  z-index: 1;
+.form-text-fields {
+  flex: 0 1 300px;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.search-input-placeholder {
+.search-btn {
   color: white;
+  display: block;
+  margin: 20px auto;
 }
 
 .search-input {
@@ -28,16 +22,26 @@
   line-height: 40px;
   font-weight: lighter;
   color: white;
-  border: 1px solid #7293A0;
   border-radius: 5px;
   padding: 0 10px;
   font-size: 14px;
   outline: none;
-  background-color: #45B69C;
   opacity: 0.9;
+  margin: 10px;
 }
 
 .search-input:focus  {
   border: 1px solid #CCCCCC;
   opacity: 1;
+}
+
+.search-datepicker {
+  color: gray;
+  padding-left: 5px;
+  margin: 10px;
+    border-radius: 5px;
+  &:focus {
+    border: 1px solid #CCCCCC;
+    opacity: 1;
+  }
 }
