@@ -34,7 +34,10 @@
           <%= link_to skill_path(s) do %>
             <%= image_tag image_url, class: 'skill-image'%>
           <% end %>
-          <% end %>
+          <%= link_to skill_path(s), method: :delete, data: { confirm: "Are you sure?" } do %>
+              <i class="fa fa-trash"></i>
+            <% end %>
+        <% end %>
     </div>
     <div class="media-section">
 
