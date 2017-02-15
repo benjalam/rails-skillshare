@@ -39,14 +39,16 @@
         <% if @user == current_user %>
           <h2>Skills <br><i class="fa fa-magic profile-icon" aria-hidden="true"></i></h2>
           <% else %>
-          <h1> <%= @user.first_name %>'s skills </h1>
+          <h2> <%= @user.first_name %>'s skills <br><i class="fa fa-magic profile-icon" aria-hidden="true"></i></h1>
           <% end  %>
             <% @user.skills.each do |s|%>
               <h4><%= link_to s.title, skill_path(s), class: "skill-name" %>
+              <% if @user == current_user %>
               <%= link_to skill_path(s), method: :delete, data: { confirm: "Are you sure?" } do %>
                   <i class="fa fa-trash"></i>
                 <% end %>
-                </h4>
+              <% end %>
+              </h4>
               <% image_url = s.photo.present? ? cl_image_path(s.photo, height: 100, width: 100, crop: :thumb) : asset_url('youpi-default.jpg') %>
               <%= link_to skill_path(s) do %>
                 <%= image_tag image_url, class: 'skill-image'%>
