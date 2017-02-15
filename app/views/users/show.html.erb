@@ -1,53 +1,74 @@
-<div class="media">
+<div class="background">
+
+<div class="text-center index-title">
+  <% if @user == current_user %>
+    <h1> Hello <%= @user.first_name %>!</h1>
+    <% else %>
+    <h1> Check out <%= @user.first_name %>'s profile !</h1>
+  <% end  %>
+</div>
+
+<div class="media text-center">
   <div class="media-body">
-    <div class="media-section">
-      <% if @user == current_user %>
-        <h1> Hello <%= @user.first_name %>!</h1>
-        <% else %>
-        <h1> Check out <%= @user.first_name %>'s profile !</h1>
-        <% end  %>
-        <h4> Member since <%= @user.created_at.year %></h4>
-        <% avatar_url = @user.facebook_picture_url || @user.photo %>
-        <%= cl_image_tag avatar_url, class: 'avatar-xl'  %>
+  <div class="container top-part-profile">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4">
+        <div class="media-section">
+        <h2>About <br><i class="fa fa-question profile-icon" aria-hidden="true"></i></h2>
+            <p> Member since <%= @user.created_at.year %></p>
+            <% avatar_url = @user.facebook_picture_url || @user.photo %>
+            <%= cl_image_tag avatar_url, class: 'avatar-xl profile-picture'  %>
+            <% if @user == current_user %>
+                <p><%= link_to "Edit Profile", edit_user_registration_path(current_user), class: "btn btn-primary" %></p>
+              <% end %>
+        </div>
+
+      </div>
+
+
+      <div class="col-xs-12 col-sm-4">
+        <div class="media-section description-center">
+          <h2>Description <br><i class="fa fa-file-text-o profile-icon" aria-hidden="true"></i></h2>
+
+            <p><%= @user.description %></p>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-4">
+        <div class="media-section text-center">
         <% if @user == current_user %>
-            <p><%= link_to "Edit Profile", edit_user_registration_path(current_user), class: "btn btn-primary" %></p>
-          <% end %>
-    </div>
-    <div class="media-section">
-      <h2>Description</h2>
-
-        <p><%= @user.description %></p>
-    </div>
-    <div class="media-section">
-      <h2> My bookings </h2>
-        <% @user.bookings.each do |b| %>
-            <p> Wth <%= b.skill.user.first_name %></p>
-            <p>Start date:<strong><%= b.start_date %></strong></p>
-            <p>End date:<strong><%= b.start_date %></strong></p>
-            <p>Booking status: <strong><%= b.status %></strong></p>
+          <h2>Skills <br><i class="fa fa-magic profile-icon" aria-hidden="true"></i></h2>
+          <% else %>
+          <h1> <%= @user.first_name %>'s skills </h1>
           <% end  %>
-    </div>
-  </div>
-  <div class="media-aside">
-    <div class="media-section">
-    <% if @user == current_user %>
-      <h1>Your skills</h1>
-      <% else %>
-      <h1> <%= @user.first_name %>'s skills </h1>
-      <% end  %>
-        <% @user.skills.each do |s|%>
-          <h4><%= s.title %></h4>
-          <% image_url = s.photo.present? ? cl_image_path(s.photo, height: 100, width: 100, crop: :thumb) : asset_url('youpi-default.jpg') %>
-          <%= link_to skill_path(s) do %>
-            <%= image_tag image_url, class: 'skill-image'%>
-          <% end %>
-          <%= link_to skill_path(s), method: :delete, data: { confirm: "Are you sure?" } do %>
-              <i class="fa fa-trash"></i>
+            <% @user.skills.each do |s|%>
+              <h4><%= link_to s.title, skill_path(s), class: "skill-name" %>
+              <%= link_to skill_path(s), method: :delete, data: { confirm: "Are you sure?" } do %>
+                  <i class="fa fa-trash"></i>
+                <% end %>
+                </h4>
+              <% image_url = s.photo.present? ? cl_image_path(s.photo, height: 100, width: 100, crop: :thumb) : asset_url('youpi-default.jpg') %>
+              <%= link_to skill_path(s) do %>
+                <%= image_tag image_url, class: 'skill-image'%>
+              <% end %>
             <% end %>
-        <% end %>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="media-section">
 
-    </div>
+        <div class="media-section">
+          <h1 class= "index-title"> My bookings </h1>
+            <% @user.bookings.each do |b| %>
+                <p> With <%= b.skill.user.first_name %></p>
+                <p>Your booked skill: <strong><%= b.skill.title %></strong></p>
+                <p>Start date:<strong><%= b.start_date %></strong></p>
+                <p>End date:<strong><%= b.start_date %></strong></p>
+                <p>Booking status: <strong><%= b.status %></strong></p>
+              <% end  %>
+        </div>
+
   </div>
+
+</div>
 </div>
