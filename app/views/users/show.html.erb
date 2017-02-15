@@ -32,12 +32,7 @@
           <%= link_to skill_path(s) do %>
             <%= image_tag image_url, class: 'skill-image'%>
           <% end %>
-          <% if @user == current_user %>
-            <%= link_to s.destroy do %>
-            <i class="glyphicon glyphicon-trash"></i>
           <% end %>
-          <% end %>
-        <% end %>
     </div>
     <div class="media-section">
 

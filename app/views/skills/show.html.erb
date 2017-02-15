@@ -24,7 +24,7 @@
 
             <%= f.input :start_date %>
             <%= f.input :end_date %>
-            <%= f.input :status, collection: STATUS %>
+            <%= f.hidden_field :status, value: "pending" %>
             <%= f.submit 'Book it!', class: "btn btn-primary" %>
           <% end %>
         </div>
