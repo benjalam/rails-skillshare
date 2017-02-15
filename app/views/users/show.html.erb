@@ -33,6 +33,7 @@
           <% image_url = s.photo.present? ? cl_image_path(s.photo, height: 100, width: 100, crop: :thumb) : asset_url('youpi-default.jpg') %>
           <%= link_to skill_path(s) do %>
             <%= image_tag image_url, class: 'skill-image'%>
+            <i class="glyphicon glyphicon-trash"></i>
           <% end %>
         <% end %>
     </div>
