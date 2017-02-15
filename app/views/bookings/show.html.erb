@@ -1,3 +1,9 @@
 <h1>Booking recapitulation</h1>
 
-<h2>@booking.status</h2>
+<h2><%= @booking.skill.title %></h2>
+<h3><%= @booking.status %></h3>
+
+<p><%= @booking.start_date %></p>
+<p><%= @booking.end_date %></p>
+
+<%= link_to "Back to Profile", user_path(current_user), class: "btn btn-primary" %>

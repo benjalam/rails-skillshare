@@ -14,7 +14,29 @@
         <% if @skill.user == current_user %>
             <p><%= link_to 'Edit skill' , edit_skill_path(@skill) %></p>
           <% elsif current_user!= nil %>
-            <p><%= link_to "Book it!", new_skill_booking_path(@skill) %></p>
+
+            <%= simple_form_for [@skill, @booking] do |f| %>
+              <%= f.error_notification %>
+
+              <%= f.input :start_date %>
+              <%= f.input :end_date %>
+              <%= f.input :status, collection: STATUS %>
+              <%= f.submit 'Book it!', class: "btn btn-success" %>
+            <% end %>
+
+
+            <% content_for(:after_js) do %>
+              <script type="text/javascript">
+                $('#booking_start_date').datepicker({
+                });
+                $('#booking_end_date').datepicker({
+                });
+              </script>
+            <% end %>
+
+            <div class="text-center">
+            <p><%= link_to "Cancel", skills_path(@skill), class: "btn btn-danger" %></p>
+            </div>
         <% end %>
       </div>
     </div>
