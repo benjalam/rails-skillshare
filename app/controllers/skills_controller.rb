@@ -46,8 +46,9 @@ class SkillsController < ApplicationController
   end
 
   def destroy
+
     @skill.destroy
-    redirect_to skills_path
+    redirect_to user_path(@skill.user)
   end
 
   private
