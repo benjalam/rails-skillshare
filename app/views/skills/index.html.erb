@@ -2,20 +2,24 @@
   <h1 class="index-title text-center">List of skills</h1>
   <div class="container">
     <div class="row">
-      <% @skillsb.each do |skill| %>
-        <div class="col-xs-12 col-sm-4">
-          <% image_url = skill.photo.present? ? cl_image_path(skill.photo) : image_path("youpi-default.jpg") %>
-          <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%=image_url%>');">
-            <div class="card-category">Popular</div>
-            <div class="card-description">
-              <h2><%= skill.title %></h2>
-              <p><%= skill.description %></p>
+      <% if @skillsb.count > 0 %>
+        <% @skillsb.each do |skill| %>
+          <div class="col-xs-12 col-sm-4">
+            <% image_url = skill.photo.present? ? cl_image_path(skill.photo) : image_path("youpi-default.jpg") %>
+            <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%=image_url%>');">
+              <div class="card-category">Popular</div>
+              <div class="card-description">
+                <h2><%= skill.title %></h2>
+                <p><%= skill.description %></p>
+              </div>
+              <% avatar_url = skill.user.facebook_picture_url || skill.user.photo || "http://placehold.it/30x30"%>
+              <%= image_tag avatar_url, class: "card-user avatar"%>
+              <%= link_to "", skill_path(skill), class:"card-link"%>
             </div>
-            <% avatar_url = skill.user.facebook_picture_url || skill.user.photo || "http://placehold.it/30x30"%>
-            <%= image_tag avatar_url, class: "card-user avatar"%>
-            <%= link_to "", skill_path(skill), class:"card-link"%>
           </div>
-        </div>
+        <% end %>
+        <% else %>
+        <h2>Sorry no skills available :( Try something else</h2>
       <% end %>
     </div>
   </div>
