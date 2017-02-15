@@ -8,8 +8,7 @@
         <% end  %>
         <h4> Member since <%= @user.created_at.year %></h4>
         <% avatar_url = @user.facebook_picture_url || @user.photo %>
-
-        <%= cl_image_tag avatar_url, height: 300, width: 200, crop: :fill  %>
+        <%= cl_image_tag avatar_url, class: 'avatar-large'  %>
         <% if @user == current_user %>
           <div>
             <%= link_to "Edit Profile", edit_user_registration_path(current_user) %>
@@ -24,7 +23,11 @@
   </div>
   <div class="media-aside">
     <div class="media-section">
+    <% if @user == current_user %>
       <h1>Your skills</h1>
+      <% else %>
+      <h1> <%= @user.first_name %>'s skills </h1>
+      <% end  %>
         <% @user.skills.each do |s|%>
           <h4><%= s.title %></h4>
           <% image_url = s.photo.present? ? cl_image_path(s.photo, height: 100, width: 100, crop: :thumb) : asset_url('youpi-default.jpg') %>
