@@ -6,9 +6,10 @@
 
       <%= form_tag(skills_path, :method => "get", id: "search-form", class: "search-bar") do %>
       <%= text_field_tag :search, params[:search], placeholder: "Search for a Skill", class: "search-input" %>
+      <%= text_field_tag :start_date, params[:start_date] %>
+      <%= text_field_tag :end_date, params[:end_date] %>
       <%= submit_tag "o", :name => nil, class: "search-btn" %>
       <% end %>
-
   </div>
 </div>
 
@@ -53,3 +54,14 @@
     </div>
   </div>
 </div>
+
+<% content_for(:after_js) do %>
+  <script type="text/javascript">
+    $('#start_date').datepicker({
+    });
+    $('#end_date').datepicker({
+    });
+  </script>
+<% end %>
+
+

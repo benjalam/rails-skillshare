@@ -7,7 +7,17 @@ class Skill < ApplicationRecord
   validates :city, presence: true
   mount_uploader :photo, PhotoUploader
 
-  def self.search(search)
-   where("title ILIKE ?", "%#{search}%")
- end
+  def self.search(params)
+   where("title ILIKE ?", "%#{params[:search]}%")
+  end
+
+  def available?(skill, form_start_date, form_end_date)
+    skill.bookings.each do |booking|
+      if booking.available?(booking, form_start_date, form_end_date)
+        return true
+      else
+        return false
+      end
+    end
+  end
 end

@@ -2,7 +2,7 @@
   <h1 class="index-title text-center">List of skills</h1>
   <div class="container">
     <div class="row">
-      <% @skills.each do |skill| %>
+      <% @skillsb.each do |skill| %>
         <div class="col-xs-12 col-sm-4">
           <% image_url = skill.photo.present? ? cl_image_path(skill.photo) : image_path("youpi-default.jpg") %>
           <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%=image_url%>');">

@@ -4,11 +4,18 @@ class SkillsController < ApplicationController
 
   def index
     @skills = Skill.all
-    if params[:search]
-     @skills = Skill.search(params[:search])
-   else
-     @skills = Skill.all
-   end
+    if params[:start_date] != "" && params[:end_date] != ""
+      form_start_date = Date.strptime(params[:start_date], '%m/%d/%Y')
+      form_end_date = Date.strptime(params[:end_date], '%m/%d/%Y')
+      @skills = Skill.search(params)
+      @skillsb = @skills.reject do |skill|
+        skill.available?(skill, form_start_date, form_end_date)
+      end
+    elsif params[:search]
+      @skillsb = Skill.search(params)
+    else
+     @skillsb = Skill.all
+    end
   end
 
   def show
