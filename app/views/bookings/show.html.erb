@@ -1,9 +1,8 @@
-<div class="wraper">
-
-  <div class="container text-center background-booking">
+  <div class="container text-center">
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-          <h1 class= "title">Booking confirmation</h1>
+        <div class="booking-wrapper">
+          <h1 class="booking-title">Booking confirmation</h1>
 
           <% image_url = @booking.skill.photo.present? ? cl_image_path(@booking.skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
            <%= image_tag image_url, class: 'image-size'%>
@@ -33,9 +32,7 @@
             <p>End date:<strong><%= @booking.end_date %></strong></p>
             <p>Booking status: <strong><%= @booking.status %></strong></p>
           </div>
-
         </div>
-
 
          <div class="text-center">
           <ul class="list-inline">
@@ -47,8 +44,7 @@
             </li>
           </ul>
         </div>
-
+        </div>
       </div>
     </div>
   </div>
-</div>
