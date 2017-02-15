@@ -26,10 +26,28 @@
 
 .image-size {
   background-size: cover;
-  width: 400px;
-  height: 300px;
+  width: 80%;
+  margin: 30px;
 }
 
-.background-beige {
-  background-color: #f7f7f7;
+body {
+  background-color: #F5F5F5;
+  font-family: 'Open Sans', sans-serif;
+  h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+  }
+}
+
+.back-button {
+  margin: 20px;
+  background-color: $darkgrey;
+  border-radius: 2px;
+  text-decoration: none;
+  &:hover {
+    color: #A5BAC2;
+    transition: all 0.4s;
+    text-decoration: none;
+    color: white;
+  }
 }

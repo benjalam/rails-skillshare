@@ -11,34 +11,37 @@
         <% end %>
         <% image_url = @skill.photo.present? ? cl_image_path(@skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
           <%= image_tag image_url, class: 'image-size'%>
-        <% if @skill.user == current_user %>
-            <p><%= link_to 'Edit skill' , edit_skill_path(@skill) %></p>
-          <% elsif current_user!= nil %>
-
-            <%= simple_form_for [@skill, @booking] do |f| %>
-              <%= f.error_notification %>
-
-              <%= f.input :start_date %>
-              <%= f.input :end_date %>
-              <%= f.input :status, collection: STATUS %>
-              <%= f.submit 'Book it!', class: "btn btn-success" %>
-            <% end %>
-
-
-            <% content_for(:after_js) do %>
-              <script type="text/javascript">
-                $('#booking_start_date').datepicker({
-                });
-                $('#booking_end_date').datepicker({
-                });
-              </script>
-            <% end %>
-
-            <div class="text-center">
-            <p><%= link_to "Cancel", skills_path(@skill), class: "btn btn-danger" %></p>
-            </div>
-        <% end %>
       </div>
+
+      <% if @skill.user == current_user %>
+        <p><%= link_to 'Edit skill' , edit_skill_path(@skill) %></p>
+      <% elsif current_user!= nil %>
+
+
+        <div class="formulaire">
+          <%= simple_form_for [@skill, @booking] do |f| %>
+            <%= f.error_notification %>
+
+            <%= f.input :start_date %>
+            <%= f.input :end_date %>
+            <%= f.input :status, collection: STATUS %>
+            <%= f.submit 'Book it!', class: "btn btn-success" %>
+          <% end %>
+        </div>
+
+        <% content_for(:after_js) do %>
+          <script type="text/javascript">
+            $('#booking_start_date').datepicker({
+            });
+            $('#booking_end_date').datepicker({
+            });
+          </script>
+        <% end %>
+
+        <div class="text-center">
+        <p><%= link_to "Back to list of skills", skills_path(@skill), class: "btn btn-info back-button" %></p>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
