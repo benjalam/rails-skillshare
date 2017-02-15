@@ -3,22 +3,15 @@
     <h1>Rent a Skill</h1>
     <p>Need to hire a Skillman ?</p>
     <%= link_to "See all our skills", skills_path, class: "btn btn-primary" %>
+    <%= form_tag(skills_path, :method => "get", class: "search-bar") do %>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
-        <%= form_tag(skills_path, :method => "get", class: "search-bar") do %>
-
-        <div class="form-text-fields col-xs-12">
-          <%= text_field_tag :search, params[:search], placeholder: "Search for a Skill", class: "search-input" %>
-          <%= text_field_tag :start_date, params[:start_date], placeholder: "mm/dd/yyyy", class: "search-datepicker" %>
-          <%= text_field_tag :end_date, params[:end_date], placeholder: "mm/dd/yyyy", class: "search-datepicker" %>
-        </div>
-        <%= submit_tag "Find your skill", :name => nil, class: "search-btn btn btn-primary" %>
-        <% end %>
-      </div>
+    <div class="form-text-fields col-xs-12">
+      <%= text_field_tag :search, params[:search], placeholder: "Search for a Skill", class: "search-input" %>
+      <%= text_field_tag :start_date, params[:start_date], placeholder: "mm/dd/yyyy", class: "search-datepicker" %>
+      <%= text_field_tag :end_date, params[:end_date], placeholder: "mm/dd/yyyy", class: "search-datepicker" %>
     </div>
-  </div>
+    <%= submit_tag "Find your skill", :name => nil, class: "search-btn btn btn-primary" %>
+    <% end %>
 
   </div>
 </div>

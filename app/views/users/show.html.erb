@@ -10,15 +10,22 @@
         <% avatar_url = @user.facebook_picture_url || @user.photo %>
         <%= cl_image_tag avatar_url, class: 'avatar-xl'  %>
         <% if @user == current_user %>
-          <div>
-            <%= link_to "Edit Profile", edit_user_registration_path(current_user) %>
-          </div>
+            <p><%= link_to "Edit Profile", edit_user_registration_path(current_user), class: "btn btn-primary" %></p>
           <% end %>
     </div>
     <div class="media-section">
       <h2>Description</h2>
 
         <p><%= @user.description %></p>
+    </div>
+    <div class="media-section">
+      <h2> My bookings </h2>
+        <% @user.bookings.each do |b| %>
+            <p> Wth <%= b.skill.user.first_name %></p>
+            <p>Start date:<strong><%= b.start_date %></strong></p>
+            <p>End date:<strong><%= b.start_date %></strong></p>
+            <p>Booking status: <strong><%= b.status %></strong></p>
+          <% end  %>
     </div>
   </div>
   <div class="media-aside">
@@ -34,7 +41,10 @@
           <%= link_to skill_path(s) do %>
             <%= image_tag image_url, class: 'skill-image'%>
           <% end %>
-          <% end %>
+          <%= link_to skill_path(s), method: :delete, data: { confirm: "Are you sure?" } do %>
+              <i class="fa fa-trash"></i>
+            <% end %>
+        <% end %>
     </div>
     <div class="media-section">
 
