@@ -1,6 +1,6 @@
 class Skill < ApplicationRecord
   belongs_to :user
-  has_many :bookings
+  has_many :bookings, dependent: :destroy
   has_many :reviews, through: :bookings
   validates :title, presence: true
   validates :description, presence: true
@@ -15,9 +15,8 @@ class Skill < ApplicationRecord
     skill.bookings.each do |booking|
       if booking.available?(booking, form_start_date, form_end_date)
         return true
-      else
-        return false
       end
     end
+    return false
   end
 end
