@@ -19,7 +19,7 @@
             <% avatar_url = @user.facebook_picture_url || @user.photo %>
             <%= cl_image_tag avatar_url, class: 'avatar-xl profile-picture'  %>
             <% if @user == current_user %>
-                <p><%= link_to "Edit Profile", edit_user_registration_path(current_user), class: "btn btn-primary" %></p>
+                <p><%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %></p>
               <% end %>
         </div>
 
