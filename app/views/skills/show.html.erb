@@ -1,53 +1,78 @@
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-      <div class="text-center">
-        <h1><%= @skill.title %></h1>
-        <h3><%= @skill.city %></h3>
-        <p><%= @skill.description %></p>
-        <% @skill.reviews.each do |review| %>
-          <p><%= review.title %></p>
-          <p><%= review.description %></p>
-        <% end %>
-        <% image_url = @skill.photo.present? ? cl_image_path(@skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
+<div class="wraper-home">
+  <div class="container">
+    <div class="row">
 
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+      <div class="skill-details">
+        <div class="text-center">
+          <h1><%= @skill.title %></h1>
+          <h3><%= @skill.city %></h3>
+          <p><%= @skill.description %></p>
+          <% @skill.reviews.each do |review| %>
+            <p><%= review.title %></p>
+            <p><%= review.description %></p>
+          <% end %>
+          <% image_url = @skill.photo.present? ? cl_image_path(@skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
 
-          <%= image_tag image_url, class: 'image-size'%>
-      </div>
-      <div class="avatar-skillshow-pic">
-        <%= link_to user_path(@skill.user) do %>
-        <% avatar_url = @skill.user.facebook_picture_url || @skill.user.photo || "http://placehold.it/30x30"%>
-        <%= image_tag avatar_url, class: 'avatar-xl'%>
-        <% end %>
-      </div>
-      <% if @skill.user == current_user %>
-        <p class="text-center"><%= link_to 'Edit skill' , edit_skill_path(@skill), class: "btn btn-primary" %></p>
-                <div class="text-center">
-        <p><%= link_to "Back to list of skills", skills_path(@skill), class: "btn btn-info back-button" %></p>
+            <%= image_tag image_url, class: 'image-size'%>
         </div>
-      <% elsif current_user!= nil %>
-
-      <div class="map-wraper text-center">
-        <div id="map" style="width: 100%; height: 300px; padding: 50px"></div>
       </div>
 
-        <div class="formulaire">
-          <%= simple_form_for [@skill, @booking] do |f| %>
-            <%= f.error_notification %>
 
-            <%= f.input :start_date %>
-            <%= f.input :end_date %>
-            <%= f.hidden_field :status, value: "pending" %>
-            <%= f.submit 'Book it!', class: "btn btn-primary" %>
+        <div class="avatar-skillshow-pic">
+          <%= link_to user_path(@skill.user) do %>
+          <% avatar_url = @skill.user.facebook_picture_url || @skill.user.photo || "http://placehold.it/30x30"%>
+          <%= image_tag avatar_url, class: 'avatar-xl'%>
           <% end %>
         </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+      <% if @skill.user == current_user %>
+      <div class="col-xs-12">
+          <div class="map-skill">
+            <div id="map" style="width: 100%; height: 300px; padding: 50px"></div>
+          </div>
+        </div>
+
+      <div class="col-xs-12">
+        <p class="text-center"><%= link_to 'Edit skill' , edit_skill_path(@skill), class: "btn btn-primary" %></p>
+      </div>
+
+      <% elsif current_user!= nil %>
+
+        <div class="col-xs-12 col-sm-6">
+          <div class="map-skill">
+            <div id="map" style="width: 100%; height: 300px; padding: 50px"></div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6">
+          <div class="formulaire skill-formulaire">
+            <%= simple_form_for [@skill, @booking] do |f| %>
+              <%= f.error_notification %>
+
+              <%= f.input :start_date %>
+              <%= f.input :end_date %>
+              <%= f.hidden_field :status, value: "pending" %>
+              <%= f.submit 'Book it!', class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+  </div>
 
         <div class="text-center">
         <p><%= link_to "Back to list of skills", skills_path(@skill), class: "btn btn-info back-button" %></p>
         </div>
-      <% end %>
-    </div>
-  </div>
+
+
+
 </div>
 
 
@@ -58,19 +83,19 @@
             $('#booking_end_date').datepicker({
             });
           </script>
-            <%= javascript_tag do %>
-              $(document).ready(function() {
-                var handler = Gmaps.build('Google');
-                handler.buildMap({ internal: { id: 'map' } }, function() {
-                  markers = handler.addMarkers(<%= raw @hash.to_json %>);
-                  handler.bounds.extendWith(markers);
-                  handler.fitMapToBounds();
-                  if (markers.length == 0) {
-                    handler.getMap().setZoom(2);
-                  } else if (markers.length == 1) {
-                    handler.getMap().setZoom(14);
-                  }
-                });
+          <%= javascript_tag do %>
+            $(document).ready(function() {
+              var handler = Gmaps.build('Google');
+              handler.buildMap({ internal: { id: 'map' } }, function() {
+                markers = handler.addMarkers(<%= raw @hash.to_json %>);
+                handler.bounds.extendWith(markers);
+                handler.fitMapToBounds();
+                if (markers.length == 0) {
+                  handler.getMap().setZoom(2);
+                } else if (markers.length == 1) {
+                  handler.getMap().setZoom(14);
+                }
               });
-            <% end %>
+            });
+          <% end %>
         <% end %>
