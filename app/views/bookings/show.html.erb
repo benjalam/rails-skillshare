@@ -2,7 +2,11 @@
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
         <div class="booking-wrapper">
-          <h1 class="booking-title">Booking confirmation</h1>
+         <% if @booking.end_date.to_date < DateTime.now %>
+          <h1 class="booking-title">Booking details</h1>
+         <% else %>
+            <h1 class="booking-title">Booking confirmation</h1>
+          <% end %>
 
           <% image_url = @booking.skill.photo.present? ? cl_image_path(@booking.skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
            <%= image_tag image_url, class: 'image-size'%>
