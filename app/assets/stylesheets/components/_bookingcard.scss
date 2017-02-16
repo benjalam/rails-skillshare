@@ -6,20 +6,23 @@
   position: relative;
   margin: auto;
   border-radius:2px;
-  background-color: #D8DDEF;
   transition: all .2s ease;
-  padding: 10px;
+  h4 {
+    margin-top: 30px;
+  }
 }
 
 .card-booking-image {
   padding: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .card-booking-description {
   padding: 5px;
-}
-.card-booking-description p {
+  p {
   font-size: 13px;
+  }
 }
 
 .card-booking-title {
@@ -36,26 +39,11 @@
     }
 }
 
-.card-booking-link {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  width: 100%;
-  z-index:2;
-  background: black;
-  opacity: 0;
-    &:hover{
-      transition: all 0.1s;
-    }
-}
 
 .booking-wrapper  {
   background-color: #E6E6E6;
   border: 1px solid #999999;
-  margin: 30px;
-  padding: 20px;
+  margin: 100px auto;
 }
 
 .booking-title {

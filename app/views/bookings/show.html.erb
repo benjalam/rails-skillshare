@@ -1,20 +1,30 @@
-  <div class="container text-center">
-    <div class="row">
-      <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-        <div class="booking-wrapper">
-         <% if @booking.end_date.to_date < DateTime.now %>
-          <h1 class="booking-title">Booking details</h1>
-         <% else %>
-            <h1 class="booking-title">Booking confirmation</h1>
-          <% end %>
+<div class="full-page">
 
-          <% image_url = @booking.skill.photo.present? ? cl_image_path(@booking.skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
-           <%= image_tag image_url, class: 'image-size'%>
+  <div class="container">
+    <div class="booking-wrapper text-center">
+      <% if Date.strptime(@booking.end_date, '%m/%d/%y') < Date.today %>
+        <h1 class="booking-title">Booking details</h1>
+      <% else %>
+        <h1 class="booking-title">Booking confirmation</h1>
+      <% end %>
 
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <div class="info-booking">
+            <% image_url = @booking.skill.photo.present? ? cl_image_path(@booking.skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
+             <%= image_tag image_url, class: 'booking-image'%>
+
+            <div class="booking-recap">
+              <%= @booking.skill.title %>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
           <div class="card-booking">
             <% if current_user == @booking.user %>
             <div class="booking-title">
-              <h2>You booked a session with <%= @booking.skill.user.first_name %>!</h2>
+              <h4>You booked a session with: </h4>
+              <p><%= @booking.skill.user.first_name %>!</p>
             </div>
             <div class="card-booking-image">
               <% image_url = @booking.skill.user.photo.present? ? cl_image_path(@booking.skill.user.photo, height: 200, width: 200, crop: :thumb) : asset_url('random-user-default.jpg') %>
@@ -33,35 +43,42 @@
               <p>Start date:<strong><%= @booking.start_date %></strong></p>
               <p>End date:<strong><%= @booking.end_date %></strong></p>
               <p>Booking status: <strong><%= @booking.status %></strong></p>
+              <p>Final price: <strong><%= @booking.final_price %>€</strong></p>
             </div>
           </div>
-
-           <div class="text-center">
-            <ul class="list-inline">
-              <% if (current_user == @booking.user) && (@booking.status == "accepted") && (@booking.end_date.to_date < DateTime.now) %>
-              <li>
-                <%= link_to "Add a review", new_skill_booking_review_path(@skill, @booking), class: "btn btn-info back-button" %>
-              </li>
-              <% end %>
-              <li>
-                <%= link_to "Book a new skill", skills_path, class: "btn btn-info back-button" %>
-              </li>
-              <li>
-                <%= link_to "See my Profile", user_path(current_user), class: "btn btn-info back-button" %>
-              </li>
-            </ul>
         </div>
       </div>
+
+
+         <div class="text-center">
+          <ul class="list-inline">
+            <% if (current_user == @booking.user) && (@booking.status == "accepted") && (Date.strptime(@booking.end_date, '%m/%d/%y') < Date.today) %>
+            <li>
+              <%= link_to "Add a review", new_skill_booking_review_path(@skill, @booking), class: "btn btn-info back-button" %>
+            </li>
+            <% end %>
+            <li>
+              <%= link_to "Book a new skill", skills_path, class: "btn btn-info back-button" %>
+            </li>
+            <li>
+              <%= link_to "See my Profile", user_path(current_user), class: "btn btn-info back-button" %>
+            </li>
+          </ul>
+      </div>
     </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-          <h1 class="text-center">Reviews</h1>
+  </div>
+
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+      <% if (current_user == @booking.user) && (@booking.status == "accepted") && (Date.strptime(@booking.end_date, '%m/%d/%y') < Date.today) %>
+        <h1 class="text-center">Reviews</h1>
           <% @booking.reviews.each do |review| %>
             <h2><%= link_to review.title, skill_booking_review_path(@skill, @booking, review) %></h2>
             <h2><%= review.rating %></h2>
             <p><%= review.description[0,100] %></p>
           <% end %>
-      </div>
+        <% end %>
     </div>
   </div>
-
+</div>
