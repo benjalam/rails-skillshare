@@ -24,7 +24,10 @@
         <p class="text-center"><%= link_to 'Edit skill' , edit_skill_path(@skill), class: "btn btn-primary" %></p>
       <% elsif current_user!= nil %>
 
+      <div class="container-formulaire">
+        `<div class="pricing-bar">
 
+        </div>
         <div class="formulaire">
           <%= simple_form_for [@skill, @booking] do |f| %>
             <%= f.error_notification %>
@@ -35,6 +38,8 @@
             <%= f.submit 'Book it!', class: "btn btn-primary" %>
           <% end %>
         </div>
+
+      </div>
 
         <% content_for(:after_js) do %>
           <script type="text/javascript">
