@@ -1,0 +1,45 @@
+.product {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-radius: 3px;
+  transition: all 0.15s ease;
+  text-decoration: none;
+  &:hover {
+    background: #E9E9E9;
+    cursor: pointer;
+    border-radius: 3px;
+    text-decoration: none;
+  }
+  h3:hover {
+    text-decoration: none;
+  }
+  p:hover {
+    text-decoration: none;
+  }
+}
+
+/* Body design */
+.product-body{
+  flex: 1 1 auto;
+  text-decoration: none;
+  &:hover {
+  text-decoration: none;
+  }
+}
+.producttrash {
+  margin-top: 100px;
+}
+
+.skill-title {
+  padding-left : 30px;
+  color: $darkgrey;
+}
+
+
+/* Product image */
+.product-image {
+  border-radius: 10px;
+  margin-right: 20px;
+  width: 175px;
+}
