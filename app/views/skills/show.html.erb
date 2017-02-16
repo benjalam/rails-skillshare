@@ -5,6 +5,7 @@
         <h1><%= @skill.title %></h1>
         <h3><%= @skill.city %></h3>
         <p><%= @skill.description %></p>
+        <p><%= @skill.price %> € per day</p>
         <% @skill.reviews.each do |review| %>
           <p><%= review.title %></p>
           <p><%= review.description %></p>
@@ -26,29 +27,26 @@
 
       <div class="container-formulaire">
         `<div class="pricing-bar">
-
+          <div class="price">
+            Pricing: <%= @skill.price %>€/day
+          </div>
         </div>
         <div class="formulaire">
           <%= simple_form_for [@skill, @booking] do |f| %>
             <%= f.error_notification %>
 
-            <%= f.input :start_date %>
-            <%= f.input :end_date %>
+            <%= f.input :start_date, id: "start_date" %>
+            <%= f.input :end_date, id: "end_date" %>
             <%= f.hidden_field :status, value: "pending" %>
             <%= f.submit 'Book it!', class: "btn btn-primary" %>
           <% end %>
         </div>
+          <div class="final-price">
+              Final Price: <span id="final-pricing"></span>
+          </div>
 
       </div>
 
-        <% content_for(:after_js) do %>
-          <script type="text/javascript">
-            $('#booking_start_date').datepicker({
-            });
-            $('#booking_end_date').datepicker({
-            });
-          </script>
-        <% end %>
 
         <div class="text-center">
         <p><%= link_to "Back to list of skills", skills_path(@skill), class: "btn btn-info back-button" %></p>
@@ -57,5 +55,24 @@
     </div>
   </div>
 </div>
+<% content_for(:after_js) do %>
+  <script type="text/javascript">
+    $('#booking_start_date').datepicker({
+    });
+    $('#booking_end_date').datepicker({
+    });
+  </script>
+  <script>
+    $('#booking_start_date', '#booking_end_date').change(function(e){
+    var start = $('#booking_start_date').val();
+    var end = $('#booking_end_date').val();
+    var startDate = new Date(start);
+    var endDate = new Date(end);
+    var diffDays = parseInt((endDate - startDate) / (1000 * 60 * 60 * 24));
+    var finalPrice = diffDays*<%= @skill.price %>;
+    $('#final-pricing').html(finalPrice);
+  });
+  </script>
+<% end %>
 
 
