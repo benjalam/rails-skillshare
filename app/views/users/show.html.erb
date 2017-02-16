@@ -7,7 +7,7 @@
     <a class="tabs" data-target="#bookings">
       <h4>My bookings</h4>
     </a>
-    <a class="tabs" data-target="#Whobookedme">
+    <a class="tabs" data-target="#whobookedme">
       <h4>Who booked me</h4>
     </a>
   </div>
@@ -96,12 +96,39 @@
             </div>
           </div>
         <% end %>
-      <div class="tab-content hidden" id="Whobookedme">
-        <p>Contact me if you want.</p>
+      </div>
+      <div class="tab-content hidden" id="whobookedme">
+        <h2 class="skill-title"> My bookings </h2>
+        <% current_user.skills.each do |s|%>
+          <% s.bookings.each do |b| %>
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-8">
+                  <%= link_to skill_booking_path(b.skill, b) do %>
+                    <div class="product">
+                      <div class='product-body'>
+                       <p> With <%= b.skill.user.first_name %></p>
+                        <p>Your booked skill: <strong><%= b.skill.title %></strong></p>
+                        <p>Start date:<strong><%= b.start_date %></strong></p>
+                        <p>End date:<strong><%= b.start_date %></strong></p>
+                        <p>Booking status: <strong><%= b.status %></strong></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-4">
+                  <ul>
+                  <li><%= link_to "Accept ", skill_booking_path(b.skill, b, booking: {:status => "accepted"}), method: :patch, class: "btn btn-success"%></li>
+                  <li><%= link_to "Decline", skill_booking_path(b.skill, b, booking: {:status => "rejected"}), method: :patch, class: "btn btn-danger"%></li>
+                  </ul>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
 
 
-<script src="javascripts/tabs.js"></script>
