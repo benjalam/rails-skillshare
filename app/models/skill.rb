@@ -7,6 +7,10 @@ class Skill < ApplicationRecord
   validates :city, presence: true
   mount_uploader :photo, PhotoUploader
 
+  geocoded_by :city
+  after_validation :geocode, if: :city_changed?
+
+
   def self.search(params)
    where("title ILIKE ?", "%#{params[:search]}%")
   end
