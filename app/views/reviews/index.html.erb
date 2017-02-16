@@ -2,7 +2,7 @@
   <div class="row">
     <h1 class="text-center padded">Reviews</h1>
     <% @reviews.each do |review| %>
-      <h2><%= link_to review.title, review_path(review) %></h2>
+      <h2><%= link_to review.title, skill_booking_review_path(review) %></h2>
       <h2><%= review.rating %></h2>
       <p><%= review.description[0,100] %></p>
     <% end %>
