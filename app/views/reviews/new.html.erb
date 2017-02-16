@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <div class="skill-form padded-form">
+        <h1 text-center>Add a review</h1>
+        <%= simple_form_for [@skill, @booking, @review] do |f| %>
+          <p><%= f.input :title %></p>
+          <p><%= f.input :description %></p>
+          <p><%= f.input :rating %></p>
+          <p><%= f.hidden_field :nature, value: "skillman" %></p>
+          <p><%= f.submit "Add a review", class: "btn btn-primary" %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

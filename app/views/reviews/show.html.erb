@@ -5,8 +5,8 @@
         <h1><%= @review.title %></h1>
         <h1><%= @review.rating %></h1>
         <p><%= @review.description %></p>
-        <p><%= link_to 'Delete', reviews_path(@booking, @skill), method: :delete %></p>
-        <% end %>
+        <p><%= link_to 'Update review', edit_skill_booking_review_path(@skill, @booking, @review), class: "btn btn-primary" %></p>
+        <p><%= link_to 'Delete review', skill_booking_review_path(@skill, @booking, @review), method: :delete, class: "btn btn-primary" %></p>
       </div>
     </div>
   </div>
