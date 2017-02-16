@@ -5,6 +5,7 @@ class Skill < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true
   validates :city, presence: true
+  validates :price, presence: true
   mount_uploader :photo, PhotoUploader
 
   def self.search(params)
