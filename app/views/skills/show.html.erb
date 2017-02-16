@@ -20,10 +20,9 @@
             <% end %>
             <% image_url = @skill.photo.present? ? cl_image_path(@skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
 
-            <%= image_tag image_url, class: 'image-size'%>
+              <%= image_tag image_url, class: 'image-size'%>
+          </div>
         </div>
-      </div>
-
 
         <div class="avatar-skillshow-pic">
           <%= link_to user_path(@skill.user) do %>
@@ -31,7 +30,6 @@
           <%= image_tag avatar_url, class: 'avatar-xl'%>
           <% end %>
         </div>
-
       </div>
     </div>
   </div>
@@ -39,7 +37,7 @@
 
 <div class="container">
   <div class="row">
-      <% if @skill.user == current_user %>
+    <% if @skill.user == current_user %>
       <div class="col-xs-12">
           <div class="map-skill">
             <div id="map" style="width: 100%; height: 300px; padding: 50px"></div>
@@ -49,16 +47,14 @@
       <div class="col-xs-12">
         <p class="text-center"><%= link_to 'Edit skill' , edit_skill_path(@skill), class: "btn btn-primary" %></p>
       </div>
-
-      <% elsif current_user!= nil %>
-
-        <div class="col-xs-12 col-sm-6">
-          <div class="map-skill">
-            <div id="map" style="width: 100%; height: 300px; padding: 50px"></div>
-          </div>
+    <% elsif current_user!= nil %>
+      <div class="col-xs-12 col-sm-6">
+        <div class="map-skill">
+          <div id="map" style="width: 100%; height: 300px; padding: 50px"></div>
         </div>
+      </div>
 
-        <div class="col-xs-12 col-sm-6">
+      <div class="col-xs-12 col-sm-6">
           <div class="formulaire skill-formulaire">
             <%= simple_form_for [@skill, @booking] do |f| %>
               <%= f.error_notification %>
@@ -67,41 +63,44 @@
               <%= f.input :end_date %>
               <%= f.hidden_field :status, value: "pending" %>
               <%= f.submit 'Book it!', class: "btn btn-primary" %>
+              <div class="final-price">
+                  Final Price: <span id="final-pricing"></span>€
+              </div>
             <% end %>
           </div>
-        </div>
-      <% end %>
+      </div>
+    <% end %>
   </div>
-
-        <div class="text-center">
-        <p><%= link_to "Back to list of skills", skills_path(@skill), class: "btn btn-info back-button" %></p>
-        </div>
-
-
-
+  <div class="text-center">
+    <p><%= link_to "Back to list of skills", skills_path(@skill), class: "btn btn-info back-button" %></p>
+  </div>
 </div>
 
 
-        <% content_for(:after_js) do %>
-          <script type="text/javascript">
-            $('#booking_start_date').datepicker({
-            });
-            $('#booking_end_date').datepicker({
-            });
-          </script>
-          <%= javascript_tag do %>
-            $(document).ready(function() {
-              var handler = Gmaps.build('Google');
-              handler.buildMap({ internal: { id: 'map' } }, function() {
-                markers = handler.addMarkers(<%= raw @hash.to_json %>);
-                handler.bounds.extendWith(markers);
-                handler.fitMapToBounds();
-                if (markers.length == 0) {
-                  handler.getMap().setZoom(2);
-                } else if (markers.length == 1) {
-                  handler.getMap().setZoom(14);
-                }
-              });
-            });
-          <% end %>
-        <% end %>
+<% content_for(:after_js) do %>
+  <%= javascript_tag do %>
+    $(document).ready(function() {
+      var handler = Gmaps.build('Google');
+      handler.buildMap({ internal: { id: 'map' } }, function() {
+        markers = handler.addMarkers(<%= raw @hash.to_json %>);
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+        if (markers.length == 0) {
+          handler.getMap().setZoom(2);
+        } else if (markers.length == 1) {
+          handler.getMap().setZoom(14);
+        }
+      });
+      $('#booking_start_date, #booking_end_date').change(function(e){
+        var start = $('#booking_start_date').val();
+        var end = $('#booking_end_date').val();
+        var startDate = new Date(start);
+        var endDate = new Date(end);
+        var diffDays = parseInt((endDate - startDate) / (1000 * 60 * 60 * 24));
+        var finalPrice = diffDays*<%= @skill.price %>;
+        $('#final-pricing').html(finalPrice);
+      });
+    });
+  <% end %>
+<% end %>
+
