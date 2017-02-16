@@ -12,10 +12,7 @@
                 Pricing: <%= @skill.price %>€/day
               </div>
             </div>
-            <% @skill.reviews.each do |review| %>
-              <p><%= review.title %></p>
-              <p><%= review.description %></p>
-            <% end %>
+
             <% image_url = @skill.photo.present? ? cl_image_path(@skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
 
               <%= image_tag image_url, class: 'image-size'%>
@@ -25,7 +22,7 @@
         <div class="avatar-skillshow-pic">
           <%= link_to user_path(@skill.user) do %>
           <% avatar_url = @skill.user.facebook_picture_url || @skill.user.photo || "http://placehold.it/30x30"%>
-          <%= image_tag avatar_url, class: 'avatar-xl'%>
+          <%= image_tag avatar_url, class: 'avatar-xl skillman-avatar'%>
           <% end %>
         </div>
       </div>
@@ -69,6 +66,38 @@
       </div>
     <% end %>
   </div>
+
+<% @skill.reviews.each do |review| %>
+  <div class="product">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-3">
+           <% avatar_url = review.booking.user.facebook_picture_url || review.booking.user.photo %>
+            <%= cl_image_tag avatar_url, class: 'avatar-xl profile-picture product-image hidden-xs'  %>
+        </div>
+        <div class="col-xs-7">
+          <div class='product-body'>
+            <h3><%= review.title %></h3>
+            <p><%= review.description %></p>
+          </div>
+        </div>
+        <div class="col-xs-2">
+          <div class="list-in line product-controls product-controls-hidden hidden-sm hidden-xs">
+          <ul class="list-inline">
+            <% review.rating.times do |yellow| %>
+              <li><i class="fa fa-star yellow-star"></i></li>
+            <% end %>
+            <% (5 - review.rating).times do |gray| %>
+              <li><i class="fa fa-star gray-star"></i></li>
+            <% end %>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
   <div class="text-center">
     <p><%= link_to "Back to list of skills", skills_path(@skill), class: "btn btn-info back-button" %></p>
   </div>
