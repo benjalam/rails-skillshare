@@ -1,18 +1,24 @@
 <div class="wraper-home">
   <div class="container">
     <div class="row">
-
-      <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+      <div class="col-xs-12 ">
       <div class="skill-details">
         <div class="text-center">
-          <h1><%= @skill.title %></h1>
-          <h3><%= @skill.city %></h3>
-          <p><%= @skill.description %></p>
-          <% @skill.reviews.each do |review| %>
-            <p><%= review.title %></p>
-            <p><%= review.description %></p>
-          <% end %>
-          <% image_url = @skill.photo.present? ? cl_image_path(@skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
+            <h1><%= @skill.title %></h1>
+            <h3><%= @skill.city %></h3>
+            <p><%= @skill.description %></p>
+            <% @skill.reviews.each do |review| %>
+              <div class="product">
+                <% avatar_url = review.booking.user.facebook_picture_url || review.booking.user.photo %>
+                <%= cl_image_tag avatar_url, class: 'avatar-xl profile-picture product-image hidden-xs' %>
+                <div class='product-body'>
+                <h3><%= review.title %></h3>
+                <p><%= review.description %></p>
+                <p><%= review.rating %></p>
+                </div>
+              </div>
+            <% end %>
+            <% image_url = @skill.photo.present? ? cl_image_path(@skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
 
             <%= image_tag image_url, class: 'image-size'%>
         </div>
