@@ -1,18 +1,26 @@
-<div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-        <div class="skill-form padded-form">
-        <h2 class="text-center">Edit your skill</h2>
-        <%= simple_form_for @skill do |f| %>
-          <%= f.input :title %>
-          <%= f.input :description %>
-          <%= f.input :city %>
-          <%= f.input :price, :label => 'Daily price in euros'  %>
-          <%= f.input :photo %>
-          <%= f.input :photo_cache, as: :hidden %>
-          <%= f.submit method: :patch, class: "btn btn-primary" %>
-        <% end %>
+<div class="full-page">
+
+  <div class="layout-form">
+
+    <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+            <div class="skill-form padded-form">
+            <h2 class="text-center">Edit your skill</h2>
+            <%= simple_form_for @skill do |f| %>
+              <%= f.input :title %>
+              <%= f.input :description %>
+              <%= f.input :city %>
+              <%= f.input :price, :label => 'Daily price in euros'  %>
+              <%= f.input :photo %>
+              <%= f.input :photo_cache, as: :hidden %>
+              <%= f.submit method: :patch, class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+
+   </div>
+
 </div>
