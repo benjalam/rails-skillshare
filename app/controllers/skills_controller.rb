@@ -26,6 +26,10 @@ class SkillsController < ApplicationController
 
   def show
     @skill = Skill.find(params[:id])
+    @hash = Gmaps4rails.build_markers(@skill) do |skill, marker|
+      marker.lat skill.latitude
+      marker.lng skill.longitude
+    end
     @booking = Booking.new
   end
 
