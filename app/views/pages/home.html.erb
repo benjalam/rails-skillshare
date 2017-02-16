@@ -2,7 +2,6 @@
   <div class="banner-content">
     <h1>Rent a Skill</h1>
     <p>Need to hire a Skillman ?</p>
-    <%= link_to "See all our skills", skills_path, class: "btn btn-primary" %>
     <%= form_tag(skills_path, :method => "get", class: "search-bar") do %>
 
     <div class="form-text-fields col-xs-12">
@@ -25,7 +24,6 @@
   <h1 class="index-title text-center">What do we do?</h1>
   <div class="container">
     <div class="row">
-
         <div class="col-xs-12 col-sm-4 text-center">
           <div class="card-home">
             <%= image_tag "add.svg", class: "avatar-xl" %>
@@ -58,6 +56,33 @@
   </div>
 </div>
 
+<div class="home-latest-skills">
+  <div class="container">
+    <div class="row">
+      <h1 class="index-title text-center">Recently added skills</h1>
+      <% @skills.last(6).each do |skill| %>
+        <div class="col-xs-12 col-sm-4">
+          <% image_url = skill.photo.present? ? cl_image_path(skill.photo) : image_path("youpi-default.jpg") %>
+          <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%=image_url%>');">
+            <div class="card-category">Popular</div>
+            <div class="card-description">
+              <h2><%= skill.title %></h2>
+              <p><%= skill.description %></p>
+            </div>
+            <% avatar_url = skill.user.facebook_picture_url || skill.user.photo || "http://placehold.it/30x30"%>
+            <%= image_tag avatar_url, class: "card-user avatar"%>
+            <%= link_to "", skill_path(skill), class:"card-link"%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<div class="text-center see-all-home">
+  <%= link_to "See all our skills", skills_path, class: "btn btn-primary" %>
+</div>
+</div>
+
+
 <% content_for(:after_js) do %>
   <script type="text/javascript">
     $('#start_date').datepicker({
@@ -66,5 +91,4 @@
     });
   </script>
 <% end %>
-
 
