@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: [:show]
+  before_action :set_booking, only: [:show, :update]
   before_action :set_skill, only: [:create, :show]
 
   def show
@@ -19,6 +19,12 @@ class BookingsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def update
+    @booking.update(booking_params)
+    @user = @booking.skill.user
+    redirect_to user_path(@user)
   end
 
   private
