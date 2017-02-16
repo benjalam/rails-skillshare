@@ -7,8 +7,6 @@
           <% image_url = @booking.skill.photo.present? ? cl_image_path(@booking.skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
            <%= image_tag image_url, class: 'image-size'%>
 
-
-
         <div class="card-booking">
           <% if current_user == @booking.user %>
           <div class="booking-title">
@@ -36,6 +34,11 @@
 
          <div class="text-center">
           <ul class="list-inline">
+            <% if (current_user == @booking.user) && (@booking.status == "accepted") && (@booking.end_date.to_date < DateTime.now) %>
+            <li>
+              <%= link_to "Add a review", new_skill_booking_review_path(@skill, @booking), class: "btn btn-info back-button" %>
+            </li>
+            <% end %>
             <li>
               <%= link_to "Book a new skill", skills_path, class: "btn btn-info back-button" %>
             </li>

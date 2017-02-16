@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show]
-  before_action :set_skill, only: [:create]
+  before_action :set_skill, only: [:create, :show]
 
   def show
     @review = Review.new
