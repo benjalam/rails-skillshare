@@ -10,7 +10,11 @@
       <%= text_field_tag :start_date, params[:start_date], placeholder: "mm/dd/yyyy", class: "search-datepicker" %>
       <%= text_field_tag :end_date, params[:end_date], placeholder: "mm/dd/yyyy", class: "search-datepicker" %>
     </div>
-    <%= submit_tag "Find your skill", :name => nil, class: "search-btn btn btn-primary" %>
+    <div class="col-xs-12">
+      <div class="text-center button-banner">
+        <%= submit_tag "Find your skill", :name => nil, class: "search-btn btn btn-primary" %>
+      </div>
+    </div>
     <% end %>
 
   </div>
