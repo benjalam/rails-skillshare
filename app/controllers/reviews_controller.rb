@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
-  before_action :set_booking, only: [:new, :create]
+  before_action :set_booking, only: [:new, :create, :show, :edit, :update]
+  before_action :set_skill, only: [:new, :create, :show, :edit, :update]
   def index
     @reviews = Review.all
   end
@@ -12,12 +13,13 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @review.booking = @booking
+    @booking.skill = @skill
+    @review.nature = "skillman"
     if @review.save
-      redirect_to booking_path(@booking)
+      redirect_to skill_booking_review_path(@skill, @booking, @review)
     else
       render :new
     end
-   # il faut nester review dans booking
   end
 
   def show
@@ -28,7 +30,7 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update(review_params)
-       redirect_to booking_path(@booking)
+       redirect_to skill_booking_review_path(@skill, @booking, @review)
     else
       render :edit
     end
@@ -36,8 +38,9 @@ class ReviewsController < ApplicationController
 
    def destroy
     @booking = @review.booking
+    @skill = @review.booking.skill
     @review.destroy
-    redirect_to booking_path(@booking)
+    redirect_to skill_booking_path(@skill, @booking)
   end
 
   private
@@ -52,6 +55,9 @@ class ReviewsController < ApplicationController
 
   def set_booking
     @booking = Booking.find(params[:booking_id])
+  end
+  def set_skill
+    @skill = Skill.find(params[:skill_id])
   end
 end
 
