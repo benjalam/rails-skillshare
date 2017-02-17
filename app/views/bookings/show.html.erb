@@ -2,7 +2,9 @@
 
   <div class="container">
     <div class="booking-wrapper text-center">
+
       <% if Date.strptime(@booking.end_date, '%d-%m-%Y') < Date.today %>
+
         <h1 class="booking-title">Booking details</h1>
       <% else %>
         <h1 class="booking-title">Booking confirmation</h1>
