@@ -5,6 +5,7 @@
   border-radius: 3px;
   transition: all 0.15s ease;
   text-decoration: none;
+  justify-content: space-between;
   &:hover {
     background: #E9E9E9;
     cursor: pointer;
@@ -81,4 +82,5 @@ ul {
 .confirmation-btn {
   margin-top: 64px;
 }
+
 
