@@ -1,50 +1,54 @@
-<h1 class="index-title text-center">List of skills</h1>
+<h1 id="top" class="index-title text-center" >List of skills</h1>
 
-<div class="map-wraper text-center">
-  <div id="map" style="width: 100%; height: 300px; padding: 50px"></div>
-</div>
-<div class="container">
-  <div class="row">
-    <% if @skillsb.count > 0 %>
-      <% @skillsb.each do |skill| %>
-        <div class="col-xs-12 col-sm-4">
-        <div class="cards-display">
-          <% image_url = skill.photo.present? ? cl_image_path(skill.photo) : image_path("youpi-default.jpg") %>
-          <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%=image_url%>');">
-            <div class="card-category"><%= skill.city %></div>
-            <div class="card-description">
-              <h2><%= skill.title %></h2>
-              <p><%= skill.description %></p>
-            </div>
-            <% avatar_url = skill.user.facebook_picture_url || skill.user.photo || "http://placehold.it/30x30"%>
-            <%= image_tag avatar_url, class: "card-user avatar"%>
-            <%= link_to "", skill_path(skill), class:"card-link"%>
-          </div>
-        </div>
-        </div>
-
-
-          <% content_for(:after_js) do %>
-            <%= javascript_tag do %>
-              $(document).ready(function() {
-                var handler = Gmaps.build('Google');
-                handler.buildMap({ internal: { id: 'map' } }, function() {
-                  markers = handler.addMarkers(<%= raw @hash.to_json %>);
-                  handler.bounds.extendWith(markers);
-                  handler.fitMapToBounds();
-                  if (markers.length == 0) {
-                    handler.getMap().setZoom(2);
-                  } else if (markers.length == 1) {
-                    handler.getMap().setZoom(14);
-                  }
-                });
-              });
-            <% end %>
-          <% end %>
-
-      <% end %>
-      <% else %>
-      <h2>Sorry no skills available :( Try something else</h2>
-    <% end %>
+<% if @skillsb.count > 0 %>
+  <div class="map-wraper text-center">
+    <div id="map" style="width: 100%; height: 300px; padding: 50px"></div>
   </div>
-</div>
+  <div class="container">
+    <div class="row">
+        <% @skillsb.each do |skill| %>
+          <div class="col-xs-12 col-sm-4">
+          <div class="cards-display">
+            <% image_url = skill.photo.present? ? cl_image_path(skill.photo) : image_path("youpi-default.jpg") %>
+            <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%=image_url%>');">
+              <div class="card-category"><%= skill.city %></div>
+              <div class="card-description">
+                <h2><%= skill.title %></h2>
+                <p><%= skill.description %></p>
+              </div>
+              <% avatar_url = skill.user.facebook_picture_url || skill.user.photo || "http://placehold.it/30x30"%>
+              <%= image_tag avatar_url, class: "card-user avatar"%>
+              <%= link_to "", skill_path(skill), class:"card-link"%>
+            </div>
+          </div>
+          </div>
+
+
+        <% end %>
+    </div>
+  </div>
+
+<% else %>
+      <h2>Sorry no skills available :( Try something else</h2>
+<% end %>
+
+<p class="text-center"><%= link_to "Back to top", '#top', class: "back-to-top" %></p>
+
+
+<% content_for(:after_js) do %>
+  <%= javascript_tag do %>
+    $(document).ready(function() {
+      var handler = Gmaps.build('Google');
+      handler.buildMap({ internal: { id: 'map' } }, function() {
+        markers = handler.addMarkers(<%= raw @hash.to_json %>);
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+        if (markers.length == 0) {
+          handler.getMap().setZoom(2);
+        } else if (markers.length == 1) {
+          handler.getMap().setZoom(14);
+        }
+      });
+    });
+  <% end %>
+<% end %>

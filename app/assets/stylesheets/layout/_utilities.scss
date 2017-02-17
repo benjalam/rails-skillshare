@@ -24,11 +24,6 @@
   background: #3b5998;
 }
 
-.image-size {
-  background-size: cover;
-  width: 80%;
-  margin: 30px;
-}
 
 body {
   background-color: #F5F5F5;
@@ -54,14 +49,12 @@ body {
 
 .skill-form {
   background-color: #CDF4E8;
-  margin-top: 50px;
+  margin-top: 120px;
+  margin-bottom: 120px;
 }
 
 .padded-form {
-  padding-top: 3em;
-  padding-bottom: 3em;
-  padding-left: 2em;
-  padding-right: 2em;
+  padding: 3em 2em 3em 2em;
 }
 
 .facebook-color {
@@ -78,4 +71,8 @@ body {
 
 .cancel-button {
   margin-left: 10px;
+}
+
+a:hover {
+  text-decoration: none;
 }

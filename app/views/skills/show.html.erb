@@ -1,62 +1,67 @@
-<div class="wraper-home">
+<div class="wraper-skill">
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-        <div class="skill-details">
-          <div class="text-center container-formulaire">
-            <h1><%= @skill.title %></h1>
-            <h3><%= @skill.city %></h3>
-            <p><%= @skill.description %></p>
-            <div class="pricing-bar">
-              <div class="price">
-                Pricing: <%= @skill.price %>€/day
-              </div>
-            </div>
-            <% @skill.reviews.each do |review| %>
-              <p><%= review.title %></p>
-              <p><%= review.description %></p>
-            <% end %>
-            <% image_url = @skill.photo.present? ? cl_image_path(@skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
+      <div class="skill-details text-center">
+        <div class="col-xs-12">
+          <h1><%= @skill.title %></h1>
+          <h3><%= @skill.city %></h3>
+          <p><%= @skill.description %></p>
+        </div>
+      </div>
+    </div>
 
-              <%= image_tag image_url, class: 'image-size'%>
+  <div class="padded-skill">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <div class="text-center">
+            <% image_url = @skill.photo.present? ? cl_image_path(@skill.photo, height: 300, width:300, crop: :thumb) : asset_url('youpi-default.jpg') %>
+            <%= image_tag image_url, class: 'image-skill'%>
           </div>
         </div>
-
-        <div class="avatar-skillshow-pic">
-          <%= link_to user_path(@skill.user) do %>
-          <% avatar_url = @skill.user.facebook_picture_url || @skill.user.photo || "http://placehold.it/30x30"%>
-          <%= image_tag avatar_url, class: 'avatar-xl'%>
-          <% end %>
+        <div class="col-xs-12 col-sm-6">
+          <div class="map-skill">
+            <div id="map" style="width: 100%; height: 300px; padding: 50px"></div>
+          </div>
         </div>
+      </div>
+
+      <div class="avatar-skillshow-pic">
+        <%= link_to user_path(@skill.user) do %>
+        <% avatar_url = @skill.user.facebook_picture_url || @skill.user.photo || "http://placehold.it/30x30"%>
+        <%= image_tag avatar_url, class: 'avatar-xl skillman-avatar'%>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
 
-<div class="container">
-  <div class="row">
+  <div class="container">
+
     <% if @skill.user == current_user %>
-      <div class="col-xs-12">
-          <div class="map-skill">
-            <div id="map" style="width: 100%; height: 300px; padding: 50px"></div>
+      <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+          <div class="pricing-bar">
+            Pricing: <%= @skill.price %> €/day
           </div>
         </div>
-
-      <div class="col-xs-12">
-        <p class="text-center"><%= link_to 'Edit skill' , edit_skill_path(@skill), class: "btn btn-primary" %></p>
-      </div>
-    <% elsif current_user!= nil %>
-      <div class="col-xs-12 col-sm-6">
-        <div class="map-skill">
-          <div id="map" style="width: 100%; height: 300px; padding: 50px"></div>
+        <div class="col-xs-12">
+          <p class="text-center"><%= link_to 'Edit skill' , edit_skill_path(@skill), class: "btn btn-primary skill-button" %></p>
         </div>
       </div>
 
-      <div class="col-xs-12 col-sm-6">
-          <div class="formulaire skill-formulaire">
+    <% elsif current_user!= nil %>
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
+          <div class="pricing-bar">
+              Pricing: <%= @skill.price %> €/day
+          </div>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
+          <div class="skill-form padded-form booking-form">
             <%= simple_form_for [@skill, @booking] do |f| %>
               <%= f.error_notification %>
-
               <%= f.input :start_date %>
               <%= f.input :end_date %>
               <%= f.hidden_field :status, value: "pending" %>
@@ -66,14 +71,65 @@
               </div>
             <% end %>
           </div>
+        </div>
+
       </div>
     <% end %>
   </div>
+
+<% @skill.reviews.each do |review| %>
+  <div class="product">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-3">
+           <% avatar_url = review.booking.user.facebook_picture_url || review.booking.user.photo %>
+            <%= cl_image_tag avatar_url, class: 'avatar-xl profile-picture product-image hidden-xs'  %>
+        </div>
+        <div class="col-xs-7">
+          <div class='product-body'>
+            <h3><%= review.title %></h3>
+            <p><%= review.description %></p>
+          </div>
+        </div>
+        <div class="col-xs-2">
+          <div class="list-in line product-controls product-controls-hidden hidden-sm hidden-xs">
+          <ul class="list-inline">
+            <% review.rating.times do |yellow| %>
+              <li><i class="fa fa-star yellow-star"></i></li>
+            <% end %>
+            <% (5 - review.rating).times do |gray| %>
+              <li><i class="fa fa-star gray-star"></i></li>
+            <% end %>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
   <div class="text-center">
     <p><%= link_to "Back to list of skills", skills_path(@skill), class: "btn btn-info back-button" %></p>
   </div>
 </div>
 
+
+<% content_for(:after_js) do %>
+  <%= javascript_tag do %>
+    $(document).ready(function() {
+      $('#booking_start_date, #booking_end_date').change(function(e){
+        var start = $('#booking_start_date').val().split("-");
+        var end = $('#booking_end_date').val().split("-");
+        var startDate = new Date(start[2] + "-" + start[1] + "-" + start[0]);
+        var endDate = new Date(end[2] + "-" + end[1] + "-" + end[0]);
+        var diffDays = parseInt((endDate - startDate) / (1000 * 60 * 60 * 24));
+        var finalPrice = diffDays*<%= @skill.price %>;
+        $('#final-pricing').html(finalPrice);
+      });
+    });
+
+  <% end %>
+<% end %>
 
 <% content_for(:after_js) do %>
   <%= javascript_tag do %>
@@ -89,16 +145,6 @@
           handler.getMap().setZoom(14);
         }
       });
-      $('#booking_start_date, #booking_end_date').change(function(e){
-        var start = $('#booking_start_date').val().split("-");
-        var end = $('#booking_end_date').val().split("-");
-        var startDate = new Date(start[2] + "-" + start[1] + "-" + start[0]);
-        var endDate = new Date(end[2] + "-" + end[1] + "-" + end[0]);
-        var diffDays = parseInt((endDate - startDate) / (1000 * 60 * 60 * 24));
-        var finalPrice = diffDays*<%= @skill.price %>;
-        $('#final-pricing').html(finalPrice);
-      });
     });
   <% end %>
 <% end %>
-
