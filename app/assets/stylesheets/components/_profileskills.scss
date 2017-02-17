@@ -43,3 +43,39 @@
   margin-right: 20px;
   width: 175px;
 }
+ul {
+  list-style-type: none;
+}
+
+.btn-medium {
+  color: $blue;
+  border: 1px solid $blue;
+  padding: 10px 15px;
+  border-radius: 50px;
+  font-weight: lighter;
+  transition: all 0.5s;
+
+}
+.btn-medium:hover {
+
+  text-decoration: none;
+  color: white;
+  background-color: $blue;
+}
+
+.btn-medium-red {
+  color: #ac0d1f;
+  border: 1px solid #ac0d1f;
+  padding: 10px 15px;
+  border-radius: 50px;
+  font-weight: lighter;
+  margin: 25px;
+  transition: all 0.5s
+}
+.btn-medium-red:hover {
+  text-decoration: none;
+  color: white;
+  background-color:#ac0d1f;
+}
+
+
