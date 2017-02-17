@@ -1,62 +1,65 @@
-<div class="wraper-home">
+<div class="wraper-skill">
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 ">
-        <div class="skill-details">
-          <div class="text-center">
-            <h1><%= @skill.title %></h1>
-            <h3><%= @skill.city %></h3>
-            <p><%= @skill.description %></p>
-            <div class="pricing-bar">
-              <div class="price">
-                Pricing: <%= @skill.price %>€/day
-              </div>
-            </div>
-
-
-            <% image_url = @skill.photo.present? ? cl_image_path(@skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
-            <%= image_tag image_url, class: 'image-size'%>
-
-          </div>
-
-        </div>
-        <div class="avatar-skillshow-pic">
-          <%= link_to user_path(@skill.user) do %>
-          <% avatar_url = @skill.user.facebook_picture_url || @skill.user.photo || "http://placehold.it/30x30"%>
-          <%= image_tag avatar_url, class: 'avatar-xl skillman-avatar'%>
-          <% end %>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
-  <div class="container">
-    <% if @skill.user == current_user %>
-      <div class="row">
+      <div class="skill-details text-center">
         <div class="col-xs-12">
+          <h1><%= @skill.title %></h1>
+          <h3><%= @skill.city %></h3>
+          <p><%= @skill.description %></p>
+        </div>
+      </div>
+    </div>
+
+  <div class="padded-skill">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <div class="text-center">
+            <% image_url = @skill.photo.present? ? cl_image_path(@skill.photo, height: 300, width:300, crop: :thumb) : asset_url('youpi-default.jpg') %>
+            <%= image_tag image_url, class: 'image-skill'%>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
           <div class="map-skill">
             <div id="map" style="width: 100%; height: 300px; padding: 50px"></div>
           </div>
         </div>
+      </div>
 
+      <div class="avatar-skillshow-pic">
+        <%= link_to user_path(@skill.user) do %>
+        <% avatar_url = @skill.user.facebook_picture_url || @skill.user.photo || "http://placehold.it/30x30"%>
+        <%= image_tag avatar_url, class: 'avatar-xl skillman-avatar'%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="container">
+
+    <% if @skill.user == current_user %>
+      <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+          <div class="pricing-bar">
+            Pricing: <%= @skill.price %> €/day
+          </div>
+        </div>
         <div class="col-xs-12">
-          <p class="text-center"><%= link_to 'Edit skill' , edit_skill_path(@skill), class: "btn btn-primary" %></p>
+          <p class="text-center"><%= link_to 'Edit skill' , edit_skill_path(@skill), class: "btn btn-primary skill-button" %></p>
         </div>
       </div>
 
     <% elsif current_user!= nil %>
-
       <div class="row">
-        <div class="col-xs-12 col-sm-6">
-          <div class="map-skill">
-            <div id="map" style="width: 100%; height: 300px"></div>
+        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
+          <div class="pricing-bar">
+              Pricing: <%= @skill.price %> €/day
           </div>
-        </div>
-
-        <div class="col-xs-12 col-sm-6">
-          <div class="skill-formulaire skill-form">
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
+          <div class="skill-form padded-form booking-form">
             <%= simple_form_for [@skill, @booking] do |f| %>
               <%= f.error_notification %>
               <%= f.input :start_date %>
