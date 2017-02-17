@@ -1,5 +1,5 @@
 class SkillsController < ApplicationController
-  before_action :set_skill, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_skill, only: [ :show, :edit, :update, :destroy]
   skip_before_action :authenticate_user!, only: [:home, :index, :show]
 
   def index
@@ -15,8 +15,8 @@ class SkillsController < ApplicationController
     elsif params[:search] && (params[:start_date] == "" || params[:start_date].nil?)
       @skillsb = Skill.search(params)
     else
-      form_start_date = Date.strptime(params[:start_date], '%m/%d/%Y')
-      form_end_date = Date.strptime(params[:end_date], '%m/%d/%Y')
+      form_start_date = Date.strptime(params[:start_date], '%d-%m-%Y')
+      form_end_date = Date.strptime(params[:end_date], '%d-%m-%Y')
       @skills = Skill.search(params)
       @skillsb = @skills.reject do |skill|
         skill.available?(skill, form_start_date, form_end_date)
