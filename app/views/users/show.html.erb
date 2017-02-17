@@ -1,94 +1,185 @@
-<div id="sidebar">
-  <a class="tabs active" data-target="#myprofile">
-    <h4>My profile</h4>
-    <a class="tabs" data-target="#skills">
-      <h4>My skills</h4>
-    </a>
-    <a class="tabs" data-target="#bookings">
-      <h4>My bookings</h4>
-    </a>
-    <a class="tabs" data-target="#Whobookedme">
-      <h4>Who booked me</h4>
-    </a>
-  </div>
-  <div id="page-content">
-    <div class="background">
-      <div class="text-center index-title">
-        <% if @user == current_user %>
-          <h1> Hello <%= @user.first_name %>!</h1>
-        <% else %>
-          <h1> Check out <%= @user.first_name %>'s profile !</h1>
-        <% end  %>
-
-      </div>
-      <div class="tab-content" id="myprofile">
-        <h2>About</h2>
-        <p> Member since <%= @user.created_at.year %></p>
-        <% avatar_url = @user.facebook_picture_url || @user.photo %>
-        <%= cl_image_tag avatar_url, class: 'avatar-xl profile-picture'  %>
-        <% if @user == current_user %>
-          <p><%= link_to "Edit Profile", edit_user_registration_path(current_user), class: "btn btn-primary" %></p>
-        <% end %>
-        <h2>Description <br><i class="fa fa-file-text-o profile-icon" aria-hidden="true"></i></h2>
-        <p><%= @user.description %></p>
-      </div>
-      <div class="tab-content hidden" id="skills">
-        <h2 class="skill-title"> My skills </h2>
-        <% current_user.skills.each do |s|%>
-          <div class="container">
+<% if @user == current_user %>
+  <div id="sidebar">
+    <a class="tabs active" data-target="#myprofile">
+      <h4>My profile</h4>
+      <a class="tabs" data-target="#skills">
+        <h4>My skills</h4>
+      </a>
+      <a class="tabs" data-target="#bookings">
+        <h4>My bookings</h4>
+      </a>
+      <a class="tabs" data-target="#whobookedme">
+        <h4>Who booked me</h4>
+      </a>
+    </div>
+    <div id="page-content">
+      <div class="background">
+        <div class="text-center index-title">
+          <h1 class="profile-title"> Hello <%= @user.first_name %>!</h1>
+        </div>
+        <div class="tab-content" id="myprofile">
+          <div class="container text-center">
             <div class="row">
-              <div class="col-xs-9">
-                <%= link_to skill_path(s) do %>
-                  <div class="product">
-                    <% image_url = s.photo.present? ? cl_image_path(s.photo, height: 100, width: 100, crop: :thumb) : asset_url('youpi-default.jpg') %>
-                    <%= image_tag image_url, class: 'product-image hidden-xs'%>
-                    <div class='product-body'>
-                      <h3><%= s.title %></h3>
-                      <p><%=s.description%></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xs-3">
-                  <div class="producttrash">
-                    <%= link_to skill_path(s), method: :delete, data: { confirm: "Are you sure?" } do %>
-                      <i class="fa fa-trash productright"></i>
+              <div class="col-xs-12 col-sm-6">
+                <div class="profile-about">
+                  <h2 class="sous-titres">About <br><i class="fa fa-question profile-icon" aria-hidden="true"></i></h2>
+                  <p> Member since <%= current_user.created_at.year %></p>
+                  <% avatar_url = current_user.facebook_picture_url || @user.photo %>
+                  <%= cl_image_tag avatar_url, class: 'avatar-xl profile-picture'  %>
+                  <% if @user == current_user %>
+                    <p><%= link_to "Edit Profile", edit_user_registration_path(current_user), class: "btn btn-primary" %></p>
                   <% end %>
                 </div>
               </div>
-              <% end %>
+
+              <div class="col-xs-12 col-sm-6">
+                <h2 class="sous-titres">Description <br><i class="fa fa-file-text-o profile-icon" aria-hidden="true"></i></h2>
+                <p><%= @user.description %></p>
+              </div>
             </div>
           </div>
-        <% end %>
-      </div>
-      <div class="tab-content hidden" id="bookings">
-        <h2 class="skill-title"> My bookings </h2>
-        <% current_user.bookings.each do |b|%>
-          <div class="container">
-            <div class="row">
-              <div class="col-xs-9">
-                <%= link_to skill_booking_path(b.skill, b) do %>
-                  <div class="product">
-                    <div class='product-body'>
-                     <p> With <%= b.skill.user.first_name %></p>
-                      <p>Your booked skill: <strong><%= b.skill.title %></strong></p>
-                      <p>Start date:<strong><%= b.start_date %></strong></p>
-                      <p>End date:<strong><%= b.start_date %></strong></p>
-                      <p>Booking status: <strong><%= b.status %></strong></p>
+        </div>
+        <div class="tab-content hidden" id="skills">
+          <h2 class="skill-title"> My skills </h2>
+          <% current_user.skills.each do |s|%>
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-9">
+                  <%= link_to skill_path(s) do %>
+                    <div class="product">
+                      <% image_url = s.photo.present? ? cl_image_path(s.photo, height: 100, width: 100, crop: :thumb) : asset_url('youpi-default.jpg') %>
+                      <%= image_tag image_url, class: 'product-image hidden-xs'%>
+                      <div class='product-body'>
+                        <h3><%= s.title %></h3>
+                        <p><%=s.description%></p>
+                      </div>
                     </div>
                   </div>
+                  <div class="col-xs-3">
+                    <div class="producttrash">
+                      <%= link_to skill_path(s), method: :delete, data: { confirm: "Are you sure?" } do %>
+                        <i class="fa fa-trash productright"></i>
+                    <% end %>
+                  </div>
                 </div>
-                <div class="col-xs-3">
+                <% end %>
               </div>
-              <% end %>
             </div>
-          </div>
-        <% end %>
-      <div class="tab-content hidden" id="Whobookedme">
-        <p>Contact me if you want.</p>
+          <% end %>
+        </div>
+        <div class="tab-content hidden" id="bookings">
+          <h2 class="skill-title"> My bookings </h2>
+          <% current_user.bookings.each do |b|%>
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-9">
+                  <%= link_to skill_booking_path(b.skill, b) do %>
+                    <div class="product">
+                      <div class='product-body'>
+                       <p> With <%= b.skill.user.first_name %></p>
+                        <p>Your booked skill: <strong><%= b.skill.title %></strong></p>
+                        <p>Start date:<strong><%= b.start_date %></strong></p>
+                        <p>End date:<strong><%= b.start_date %></strong></p>
+                        <p>Booking status: <strong><%= b.status %></strong></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-3">
+                </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="tab-content hidden" id="whobookedme">
+          <h2 class="skill-title"> My bookings </h2>
+          <% current_user.skills.each do |s|%>
+            <% s.bookings.each do |b| %>
+              <div class="container">
+                <div class="row">
+                  <div class="col-xs-8">
+                    <%= link_to skill_booking_path(b.skill, b) do %>
+                      <div class="product">
+                        <div class='product-body'>
+                         <p> With <%= b.skill.user.first_name %></p>
+                          <p>Your booked skill: <strong><%= b.skill.title %></strong></p>
+                          <p>Start date:<strong><%= b.start_date %></strong></p>
+                          <p>End date:<strong><%= b.start_date %></strong></p>
+                          <p>Booking status: <strong><%= b.status %></strong></p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xs-4">
+                    <ul>
+                    <li><%= link_to "Accept ", skill_booking_path(b.skill, b, booking: {:status => "accepted"}), method: :patch, class: "btn btn-success"%></li>
+                    <li><%= link_to "Decline", skill_booking_path(b.skill, b, booking: {:status => "rejected"}), method: :patch, class: "btn btn-danger"%></li>
+                    </ul>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% else %>
+  <div id="sidebar">
+    <a class="tabs active" data-target="#myprofile">
+      <h4>His profile</h4>
+      <a class="tabs" data-target="#skills">
+        <h4>His skills</h4>
+      </a>
+    </div>
+    <div id="page-content">
+      <div class="background">
+        <div class="text-center index-title">
+          <h1 class="profile-title"> Check out <%= @user.first_name %>'s profile !</h1>
+        </div>
+        <div class="tab-content" id="myprofile">
+          <div class="container text-center">
+            <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                <div class="profile-about">
+                  <h2 class="sous-titres">About <br><i class="fa fa-question profile-icon" aria-hidden="true"></i></h2>
+                  <p> Member since <%= @user.created_at.year %></p>
+                  <% avatar_url = @user.facebook_picture_url || @user.photo %>
+                  <%= cl_image_tag avatar_url, class: 'avatar-xl profile-picture'  %>
+                </div>
+              </div>
+
+              <div class="col-xs-12 col-sm-6">
+                <h2 class="sous-titres">Description <br><i class="fa fa-file-text-o profile-icon" aria-hidden="true"></i></h2>
+                <p><%= @user.description %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content hidden" id="skills">
+          <h2 class="skill-title"> His skills </h2>
+          <% @user.skills.each do |s|%>
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-9">
+                  <%= link_to skill_path(s) do %>
+                    <div class="product">
+                      <% image_url = s.photo.present? ? cl_image_path(s.photo, height: 100, width: 100, crop: :thumb) : asset_url('youpi-default.jpg') %>
+                      <%= image_tag image_url, class: 'product-image hidden-xs'%>
+                      <div class='product-body'>
+                        <h3><%= s.title %></h3>
+                        <p><%=s.description%></p>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
 
 
-<script src="javascripts/tabs.js"></script>
