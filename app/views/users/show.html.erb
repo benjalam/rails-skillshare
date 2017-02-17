@@ -114,10 +114,10 @@
                       </div>
                     </div>
                     <div class="col-xs-4">
-                    <ul>
-                    <li><%= link_to "Accept ", skill_booking_path(b.skill, b, booking: {:status => "accepted"}), method: :patch, class: "btn btn-success"%></li>
-                    <li><%= link_to "Decline", skill_booking_path(b.skill, b, booking: {:status => "rejected"}), method: :patch, class: "btn btn-danger"%></li>
-                    </ul>
+
+                      <%= link_to "Accept ", skill_booking_path(b.skill, b, booking: {:status => "accepted"}), method: :patch, class: "btn-medium"%>
+                      <%= link_to "Decline", skill_booking_path(b.skill, b, booking: {:status => "rejected"}), method: :patch, class: "btn-medium-red"%>
+
                     </div>
                   <% end %>
                 </div>
