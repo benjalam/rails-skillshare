@@ -97,7 +97,7 @@
           <% end %>
         </div>
         <div class="tab-content hidden" id="whobookedme">
-          <h2 class="skill-title"> My bookings </h2>
+          <h2 class="skill-title"> Who booked me </h2>
           <% current_user.skills.each do |s|%>
             <% s.bookings.each do |b| %>
               <div class="container">
@@ -112,12 +112,18 @@
                           <p>End date:<strong><%= b.start_date %></strong></p>
                           <p>Booking status: <strong><%= b.status %></strong></p>
                         </div>
+                        <div>
+                        <% image_url = b.user.photo.present? ? cl_image_path(b.user.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
+                        <%= image_tag image_url, class: 'avatar-xl'%>
+                      </div>
                       </div>
                     </div>
                     <div class="col-xs-4">
-
+                      <div class="confirmation-btn">
                       <%= link_to "Accept ", skill_booking_path(b.skill, b, booking: {:status => "accepted"}), method: :patch, class: "btn-medium"%>
                       <%= link_to "Decline", skill_booking_path(b.skill, b, booking: {:status => "rejected"}), method: :patch, class: "btn-medium-red"%>
+                      </div>
+
 
                     </div>
                   <% end %>
