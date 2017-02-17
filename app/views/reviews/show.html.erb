@@ -25,10 +25,13 @@
              <%= image_tag image_url, class: 'booking-image'%>
 
 
+<% if current_user == @review.booking.user %>
 <ul class = "list-inline review-btn">
   <li><%= link_to 'Update review', edit_skill_booking_review_path(@skill, @booking, @review), class: "btn btn-primary" %></li>
   <li><%= link_to 'Delete review', skill_booking_review_path(@skill, @booking, @review), method: :delete, class: "btn btn-primary" %></li>
 </ul>
+<% end %>
+
 
 <p><%= link_to "Back", skill_booking_path(@skill, @review.booking), class: "btn btn-info back-button" %></p>
 
