@@ -1,13 +1,41 @@
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-      <div class="text-center">
-        <h1><%= @review.title %></h1>
-        <h1><%= @review.rating %></h1>
-        <p><%= @review.description %></p>
-        <p><%= link_to 'Update review', edit_skill_booking_review_path(@skill, @booking, @review), class: "btn btn-primary" %></p>
-        <p><%= link_to 'Delete review', skill_booking_review_path(@skill, @booking, @review), method: :delete, class: "btn btn-primary" %></p>
+<div class="full-page">
+
+  <div class="container">
+    <div class="booking-wrapper text-center">
+
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+          <div class="text-center">
+            <h1><%= @review.title %></h1>
+
+
+            <ul class="list-inline">
+                    <% @review.rating.times do |yellow| %>
+                      <li><i class="fa fa-star yellow-star"></i></li>
+                    <% end %>
+                    <% (5 - @review.rating).times do |gray| %>
+                      <li><i class="fa fa-star gray-star"></i></li>
+                    <% end %>
+            </ul>
+            <p><%= @review.description %></p>
+            <h2><%= @review.booking.skill.title %></h2>
+
+            <% image_url = @review.booking.skill.photo.present? ? cl_image_path(@booking.skill.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
+             <%= image_tag image_url, class: 'booking-image'%>
+
+
+<ul class = "list-inline review-btn">
+  <li><%= link_to 'Update review', edit_skill_booking_review_path(@skill, @booking, @review), class: "btn btn-primary" %></li>
+  <li><%= link_to 'Delete review', skill_booking_review_path(@skill, @booking, @review), method: :delete, class: "btn btn-primary" %></li>
+</ul>
+
+<p><%= link_to "Back", skill_booking_path(@skill, @review.booking), class: "btn btn-info back-button" %></p>
+
+          </div>
+        </div>
       </div>
     </div>
+
   </div>
 </div>

@@ -16,7 +16,7 @@ class ReviewsController < ApplicationController
     @booking.skill = @skill
     @review.nature = "skillman"
     if @review.save
-      redirect_to skill_booking_review_path(@skill, @booking, @review)
+      redirect_to skill_booking_path(@skill, @booking)
     else
       render :new
     end
