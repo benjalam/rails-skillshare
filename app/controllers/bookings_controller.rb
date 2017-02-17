@@ -13,7 +13,7 @@ class BookingsController < ApplicationController
     @booking = Booking.new(booking_params)
     @booking.user = current_user
     @booking.skill = @skill
-    @booking.final_price = (@booking.end_date.split("/")[1].to_i - @booking.start_date.split("/")[1].to_i) * @booking.skill.price
+    @booking.final_price = (@booking.end_date.split("-")[0].to_i - @booking.start_date.split("-")[0].to_i) * @booking.skill.price
     if @booking.save
       redirect_to skill_booking_path(@skill, @booking)
     else
