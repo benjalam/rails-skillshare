@@ -82,6 +82,10 @@
                         <p>End date:<strong><%= b.start_date %></strong></p>
                         <p>Booking status: <strong><%= b.status %></strong></p>
                       </div>
+                      <div>
+                        <% image_url = b.skill.user.photo.present? ? cl_image_path(b.skill.user.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
+                        <%= image_tag image_url, class: 'avatar-xl'%>
+                      </div>
                     </div>
                   </div>
                   <div class="col-xs-3">
