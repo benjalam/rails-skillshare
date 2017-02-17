@@ -84,8 +84,18 @@
                         <p>Booking status: <strong><%= b.status %></strong></p>
                       </div>
                       <div>
-                        <% image_url = b.skill.user.photo.present? ? cl_image_path(b.skill.user.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
-                        <%= image_tag image_url, class: 'avatar-xl'%>
+                        <% if b.skill.user.facebook_picture_url.present? %>
+                          <% image_url = b.skill.user.facebook_picture_url %>
+                        <% elsif b.skill.user.photo.present? %>
+                          <% image_url = cl_image_path(b.skill.user.photo, height: 200, width: 200, crop: :thumb) %>
+                        <% else %>
+                          <% image_url = asset_url('random-user-default.jpg') %>
+                        <% end %>
+
+                        <%= link_to user_path(b.skill.user) do %>
+                          <%= image_tag image_url, class: 'avatar-xl'%>
+                        <% end %>
+
                       </div>
                     </div>
                   </div>
@@ -112,9 +122,19 @@
                           <p>End date:<strong><%= b.start_date %></strong></p>
                           <p>Booking status: <strong><%= b.status %></strong></p>
                         </div>
+
                         <div>
-                        <% image_url = b.user.photo.present? ? cl_image_path(b.user.photo, height: 200, width: 200, crop: :thumb) : asset_url('youpi-default.jpg') %>
-                        <%= image_tag image_url, class: 'avatar-xl'%>
+                          <% if b.user.facebook_picture_url.present? %>
+                            <% image_url = b.user.facebook_picture_url %>
+                          <% elsif b.user.photo.present? %>
+                            <% image_url = cl_image_path(b.user.photo, height: 200, width: 200, crop: :thumb) %>
+                          <% else %>
+                            <% image_url = asset_url('random-user-default.jpg') %>
+                          <% end %>
+
+                          <%= link_to user_path(b.user) do %>
+                            <%= image_tag image_url, class: 'avatar-xl'%>
+                          <% end %>
                       </div>
                       </div>
                     </div>
@@ -179,7 +199,7 @@
                       <%= image_tag image_url, class: 'product-image hidden-xs'%>
                       <div class='product-body'>
                         <h3><%= s.title %></h3>
-                        <p>Find your skill(wo)man in <strong><%= s.city.upcase %></strong></p>
+                        <p>Find <%= @user.first_name %> in <strong><%= s.city.upcase %></strong></p>
                         <p><%=s.description%></p>
                       </div>
                     </div>
