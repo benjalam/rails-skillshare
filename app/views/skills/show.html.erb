@@ -81,6 +81,7 @@
   </div>
 
 <% @skill.reviews.each do |review| %>
+<%= link_to skill_booking_review_path(@skill, @booking, review) do %>
   <div class="product">
     <div class="container">
       <div class="row">
@@ -109,6 +110,7 @@
       </div>
     </div>
   </div>
+  <% end  %>
 <% end %>
 
   <div class="text-center">
