@@ -118,10 +118,10 @@
   <%= javascript_tag do %>
     $(document).ready(function() {
       $('#booking_start_date, #booking_end_date').change(function(e){
-        var start = $('#booking_start_date').val();
-        var end = $('#booking_end_date').val();
-        var startDate = new Date(start);
-        var endDate = new Date(end);
+        var start = $('#booking_start_date').val().split("-");
+        var end = $('#booking_end_date').val().split("-");
+        var startDate = new Date(start[2] + "-" + start[1] + "-" + start[0]);
+        var endDate = new Date(end[2] + "-" + end[1] + "-" + end[0]);
         var diffDays = parseInt((endDate - startDate) / (1000 * 60 * 60 * 24));
         var finalPrice = diffDays*<%= @skill.price %>;
         $('#final-pricing').html(finalPrice);
