@@ -1,4 +1,4 @@
-<div class="wraper-home">
+<div class="wraper-skill">
   <div class="container">
     <div class="row">
       <div class="skill-details text-center">
@@ -8,7 +8,9 @@
           <p><%= @skill.description %></p>
         </div>
       </div>
+    </div>
 
+  <div class="padded-skill">
       <div class="row">
         <div class="col-xs-12 col-sm-6">
           <div class="text-center">
@@ -23,18 +25,15 @@
         </div>
       </div>
 
-
-          </div>
-        <div class="avatar-skillshow-pic">
-          <%= link_to user_path(@skill.user) do %>
-          <% avatar_url = @skill.user.facebook_picture_url || @skill.user.photo || "http://placehold.it/30x30"%>
-          <%= image_tag avatar_url, class: 'avatar-xl skillman-avatar'%>
-          <% end %>
-        </div>
-
-
+      <div class="avatar-skillshow-pic">
+        <%= link_to user_path(@skill.user) do %>
+        <% avatar_url = @skill.user.facebook_picture_url || @skill.user.photo || "http://placehold.it/30x30"%>
+        <%= image_tag avatar_url, class: 'avatar-xl skillman-avatar'%>
+        <% end %>
+      </div>
     </div>
   </div>
+</div>
 
   <div class="container">
 

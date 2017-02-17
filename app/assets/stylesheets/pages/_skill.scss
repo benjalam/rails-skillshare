@@ -1,8 +1,7 @@
 .skill-details {
-  background-color: #E9E9E9;
   padding: 30px;
   margin-top: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
   width: 100%;
 }
 
@@ -32,4 +31,18 @@
 
 .skill-button {
   margin-top: 30px;
+}
+
+.wraper-skill {
+  background: linear-gradient(-225deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.4) 50%), image-url("background.jpg") no-repeat center;
+  color: white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 30px;
+}
+
+.padded-skill {
+  margin-bottom: 50px;
 }
